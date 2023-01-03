@@ -1,0 +1,54 @@
+textarea {
+    resize: none;
+    font-family: 'Mukta', sans-serif;
+    letter-spacing: 3px;
+    margin-top: -0.5rem;
+}
+
+hr {
+    opacity: 0.5;
+}
+
+.Editor {
+    padding: 0.5rem;
+    box-sizing: border-box;
+
+    grid-column: 1/2;
+    grid-row: 3/4;
+    height: 6000px;
+    background-color: var(--light);
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.editor-input-line {
+    width: 100%;
+    height: auto;
+    overflow:visible;
+    box-sizing: border-box;
+    padding: 0.25rem;
+    font-size: 1.5rem;
+    border: none;
+    background-color: var(--light);
+}
+
+.editor-line-flex {
+    display: flex;
+    padding-bottom: 0.125rem;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.editor-line-number {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.5rem;
+    text-align: right;
+
+    width: 2rem;
+    padding: 0.25rem;
+    padding-right: 0.5;
+    background-color: var(--accent-2);
+    border-radius: 0.5rem;
+}
