@@ -3,6 +3,8 @@ textarea {
     font-family: 'Mukta', sans-serif;
     letter-spacing: 3px;
     margin-top: -0.5rem;
+    overflow: hidden;
+    min-height: 3rem;
 }
 
 hr {
@@ -25,7 +27,6 @@ hr {
 
 .editor-input-line {
     width: 100%;
-    height: auto;
     overflow:visible;
     box-sizing: border-box;
     padding: 0.25rem;
@@ -36,6 +37,7 @@ hr {
 
 .editor-line-flex {
     display: flex;
+    min-height: 3rem;
     padding-bottom: 0.125rem;
     align-items: flex-start;
     gap: 0.5rem;
