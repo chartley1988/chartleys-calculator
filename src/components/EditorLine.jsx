@@ -1,19 +1,39 @@
-import { useState } from 'react'
-import '../css/editor.css'
+import { useState } from 'react';
+import '../css/editor.css';
 import TextareaAutosize from 'react-textarea-autosize';
 
-function EditorLine (props) {
-    const { lineNumber } = props;
-    
-    return (
-      <div>
-        <div className='editor-line-flex'>
-            <p className='editor-line-number'>{lineNumber}</p>
-            <TextareaAutosize  className='editor-input-line' type="text" wrap='hard'></TextareaAutosize>
-        </div>
-        <hr></hr>
-      </div>  
-    )
-};
+function EditorLine(props) {
+	const { lineNumber, value } = props;
+	console.log(value);
 
-export default EditorLine
+	const input = (
+		<TextareaAutosize
+			name= 'textInput'
+			value= {value}
+			className='editor-input-line'
+			id={lineNumber}
+			type='text'
+			onChange={getInputValue}
+			data-testid="testEditorLine"
+		></TextareaAutosize>
+    );
+    
+    function getInputValue() {
+      const lineText = document.getElementById(lineNumber).value;
+      return lineText;
+    }
+
+
+
+	return (
+		<div>
+			<div className='editor-line-flex'>
+				<p className='editor-line-number'>{lineNumber}</p>
+				{input}
+			</div>
+			<hr></hr>
+		</div>
+	);
+}
+
+export default EditorLine;
