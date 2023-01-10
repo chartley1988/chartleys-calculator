@@ -8,7 +8,7 @@ function EditorLine(props) {
 
 	const input = (
 		<TextareaAutosize
-			name= 'textInput'
+			aria-label='textInput'
 			value= {value}
 			className='editor-input-line'
 			id={lineNumber}

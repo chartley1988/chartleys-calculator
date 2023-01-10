@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview --host",
-    "test": "vitest --config vitest.config.ts",
+    "test": "vitest --config vitest.config.ts --watch",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
