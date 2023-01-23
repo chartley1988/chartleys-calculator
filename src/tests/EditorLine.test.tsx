@@ -4,33 +4,84 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import EditorLine from '../components/EditorLine';
 
 describe('String parser', () => {
-	test('Split string at spaces 4', () => {
-		const testMessage = '5 + 6';
+
+	function getInputValue (testString: string): string {
+		
+		if(testString === undefined) return ""
+		
 		const { getByRole } = render(
 			<EditorLine
-				value={testMessage}
+				value={testString}
 				data-testid='testEditorLine'
 			></EditorLine>
 		);
-
-		interface EditorLineInput extends HTMLElement {
-			value?: string;
-		}
-
-		const input: EditorLineInput = getByRole('textbox', {
+	
+		const input = getByRole('textbox', {
 			name: 'textInput',
-		});
-		console.log(input);
+		}) as HTMLTextAreaElement;
 
-		expect(input.value).toEqual('5 + 6');
+		return input.value;
+	}
+
+	function splitString (inputString: string): string[] {
+	const splitSpaces = inputString.split(/[\s]|(?=[*/+-])|(?<=[*/+-])/g);
+		const removeEmpties = splitSpaces.filter(entry => entry !== "");
+		return removeEmpties;
+	}
+
+	test('Does getInputValue return string', () => {
+		expect(getInputValue('Carson Hartley')).toEqual('Carson Hartley');
 	});
 
-	test('1+1', () => {
-		expect(1 + 1).toEqual(2);
+	test('Does getInputValue return numbers as string', () => {
+		expect('1 + 1').toEqual('1 + 1');
 	});
 
-	test('Split string at spaces 3', () => {
-		expect('Carson Hartley'.split(' ')).toEqual(['Carson', 'Hartley']);
+	test('Split string at spaces', () => {
+		const testString: string = getInputValue('Carson Hartley');
+		expect(splitString(testString)). toEqual([
+			'Carson',
+			'Hartley'
+		])
+	});
+
+	test('Split string at spaces, remove extra spaces', () => {
+		const testString: string = getInputValue('Carson     Hartley');
+		expect(splitString(testString)). toEqual([
+			'Carson',
+			'Hartley'
+		])
+	});
+
+	test('Mix numbers and spaces', () => {
+		const testString: string = getInputValue('1  + 2');
+		expect(splitString(testString)). toEqual([
+			'1',
+			'+',
+			'2'
+		])
+	});
+
+	test('Split at operators, but include operators', () => {
+		const testString: string = getInputValue('Carson+   Hartley');
+		expect(splitString(testString)). toEqual([
+			'Carson',
+			'+',
+			'Hartley'
+		])
+	});
+
+	test('Split at operators, but include operators', () => {
+		const testString: string = getInputValue('Carson+ Hartley - 5 +    3');
+		expect(splitString(testString)). toEqual([
+			'Carson',
+			'+',
+			'Hartley',
+			'-',
+			'5',
+			'+',
+			'3'
+		])
 	});
 
 	test('Split string at spaces 2', () => {
