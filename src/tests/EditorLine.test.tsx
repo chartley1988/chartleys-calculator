@@ -1,4 +1,5 @@
 import { test, expect } from 'vitest';
+import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import EditorLine from '../components/EditorLine';
 
@@ -12,7 +13,13 @@ describe('String parser', () => {
 			></EditorLine>
 		);
 
-		const input = getByRole('textbox', { name: 'textInput' });
+		interface EditorLineInput extends HTMLElement {
+			value?: string;
+		}
+
+		const input: EditorLineInput = getByRole('textbox', {
+			name: 'textInput',
+		});
 		console.log(input);
 
 		expect(input.value).toEqual('5 + 6');
@@ -41,11 +48,26 @@ describe('String parser', () => {
 	});
 });
 
-describe('Addition', () => {
-	function addNumbers(a, b) {
-		return a + b;
-	}
+// Functions
 
+function addNumbers(a: number, b: number): number {
+	return a + b;
+}
+
+function subtractNumbers(a: number, b: number): number {
+	return a - b;
+}
+
+function multiplyNumbers(a: number, b: number): number {
+	return a * b;
+}
+
+function divideNumbers(a: number, b: number): number | string {
+	if (b === 0) return 'Error! Divide by Zero';
+	return a / b;
+}
+
+describe('Addition', () => {
 	test('Add A + B', () => {
 		expect(addNumbers(1, 3)).toEqual(4);
 	});
@@ -60,10 +82,6 @@ describe('Addition', () => {
 });
 
 describe('Subtraction', () => {
-	function subtractNumbers(a, b) {
-		return a - b;
-	}
-
 	test('Sub A - B', () => {
 		expect(subtractNumbers(5, 3)).toEqual(2);
 	});
@@ -78,10 +96,6 @@ describe('Subtraction', () => {
 });
 
 describe('Multiply', () => {
-	function multiplyNumbers(a, b) {
-		return a * b;
-	}
-
 	test('Multiply A * B', () => {
 		expect(multiplyNumbers(8, 12)).toEqual(96);
 	});
@@ -96,11 +110,6 @@ describe('Multiply', () => {
 });
 
 describe('Divide', () => {
-	function divideNumbers(a, b) {
-		if(b === 0) return 'Error! Divide by Zero'
-		return a / b;
-	}
-
 	test('Divide A / B', () => {
 		expect(divideNumbers(8, 16)).toEqual(0.5);
 	});
@@ -114,6 +123,6 @@ describe('Divide', () => {
 	});
 
 	test('Divide by Zero', () => {
-		expect(divideNumbers(10,0)).toEqual('Error! Divide by Zero');
-	})
+		expect(divideNumbers(10, 0)).toEqual('Error! Divide by Zero');
+	});
 });
