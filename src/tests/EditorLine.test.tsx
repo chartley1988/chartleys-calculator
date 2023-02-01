@@ -85,12 +85,12 @@ describe('String parser', () => {
 	});
 
 	test('Split string at spaces 2', () => {
-		expect('Carsons and Leah and Melba'.split(' ')).toEqual([
+		expect('Carsons and Leahs and Melbas'.split(' ')).toEqual([
 			'Carsons',
 			'and',
-			'Leah',
+			'Leahs',
 			'and',
-			'Melba',
+			'Melbas',
 		]);
 	});
 

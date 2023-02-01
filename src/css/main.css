@@ -1,14 +1,11 @@
 :root {
-    --light: #f3f1e7;
-    --light-accent: #cdcbc0;
-    --dark: #3D405B;
-    --accent-1: #E07A5F;
-    --accent-2: #81b29a72;
-    --accent-3: #F2CC8F;
+    --accent: 153, 217, 140;
+    --accent-2: 22, 138, 173;
+    --font: black;
 }
 
 body {
-    background-color: var(--dark);
+    background-color: white;
 }
 
 * {
@@ -28,21 +25,25 @@ header {
 
     grid-column: 1/3;
     grid-row: 1/2;
-    background-color: var(--dark);
+    background-color: rgb(var(--accent),0.3);
+    border-bottom: 2px solid rgb(var(--accent));
     
-    color: var(--accent-3);
+    color: var(--font);
     font-family: 'Share Tech Mono', monospace;
     font-size: 3.5rem;
     font-weight: 900;
 }
 
 footer {
+    grid-column: 1/2;
+    width: 100%;
+
     --size: 4rem;
     position: fixed;
     bottom: 0px;
     height: var(--size);
-    width: 100%;
-    background-color: var(--dark);
+    background-color: white;
+    border-top: rgb(var(--accent)) solid 2px;
 
     display: flex;
     padding: 0.5rem;
@@ -52,15 +53,15 @@ footer > button {
     font-family: 'Share Tech Mono', monospace;
     font-weight: 900;
     font-size: 1.5rem;
-    color: black;
-    background-color: var(--accent-3);
+    color: var(--font);
+    background-color: rgb(var(--accent), 0.2);
     padding: 0.25rem 0.5rem 0.25rem 0.5rem;
     border: none;
     border-radius: 0.75rem;
 }
 
 footer > button:hover {
-    background-color: var(--accent-1);
+    background-color: rgb(var(--accent), 0.4);
 }
 
 
@@ -80,7 +81,8 @@ footer > button:hover {
     grid-column: 2/3;
     grid-row: 3/4;
     height: 100%;
-    background-color: var(--light-accent);
+    background-color: rgb(var(--accent-2),0.3);
+    border-left: solid rgb(var(--accent-2)) 2px;
 }
 
 
@@ -91,5 +93,19 @@ footer > button:hover {
 
     .App {
         grid-template-columns: 2fr 1fr;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --font: #F7FBE8;
+    }
+
+    body {
+        background-color: rgb(37, 37, 37);
+    }
+
+    footer {
+        background-color: rgb(22, 22, 22);
     }
 }
