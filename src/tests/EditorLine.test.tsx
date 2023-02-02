@@ -24,8 +24,8 @@ describe('String parser', () => {
 	}
 
 	function splitString (inputString: string): string[] {
-	const splitSpaces = inputString.split(/[\s]|(?=[*/+-])|(?<=[*/+-])/g);
-		const removeEmpties = splitSpaces.filter(entry => entry !== "");
+	const splitTokens = inputString.split(/[\s]|(?=[\^*/+-])|(?<=[\^*/+-])|(?<=[\\(\\)])|(?=[\\(\\)])/g);
+		const removeEmpties = splitTokens.filter(entry => entry !== "");
 		return removeEmpties;
 	}
 
@@ -84,18 +84,22 @@ describe('String parser', () => {
 		])
 	});
 
-	test('Split string at spaces 2', () => {
-		expect('Carsons and Leahs and Melbas'.split(' ')).toEqual([
-			'Carsons',
-			'and',
-			'Leahs',
-			'and',
-			'Melbas',
-		]);
+	test('Split at parenthesis and exponents', () => {
+		const testString: string = getInputValue(`(5+6^3)`);
+		expect(splitString(testString)). toEqual([
+			'(',
+			'5',
+			'+',
+			'6',
+			'^',
+			'3',
+			')'
+		])
 	});
 
-	test('Split string at spaces 1', () => {
-		expect('5 + 6 + 7'.split(' ')).toEqual(['5', '+', '6', '+', '7']);
+	test('Split at nested parenthesis', () => {
+		const testString: string = getInputValue(`5+(4(9*3))`);
+		expect(splitString(testString)). toEqual(['5','+','(','4','(','9','*','3',')',')'])
 	});
 });
 
