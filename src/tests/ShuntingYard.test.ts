@@ -1,5 +1,11 @@
 import { test, expect } from 'vitest';
 
+function splitString (inputString: string): string[] {
+	const splitTokens = inputString.split(/[\s]|(?=[\^*/+-])|(?<=[\^*/+-])|(?<=[\\(\\)])|(?=[\\(\\)])/g);
+		const removeEmpties = splitTokens.filter(entry => entry !== "");
+		return removeEmpties;
+	}
+
 /*
 PSEUDO CODE
 ===================================
@@ -24,17 +30,16 @@ Tokens  =   [] (Input data)
 
 */
 
-const testTokens = ['5', '(', '44', ')'];
+const testTokens = splitString('1 + 3 * 9 / (2+4)')
 
 function parseInfix(tokens) {
 	const input: string[] = tokens.map((x) => x);
 	console.log(`Input: ${input}`);
-	console.log('------------------')
-	
+	console.log('------------------');
+
 	const stack: string[] = [];
 	const output: string[] = [];
 	logResults(stack, output);
-	
 
 	for (let i = 0; i < tokens.length; i++) {
 		const token: string = tokens[i];
@@ -49,8 +54,68 @@ function parseInfix(tokens) {
 			continue;
 		}
 		if (isRightBracket(token)) {
-			logResults(stack, output);
+			while (stack.length > 0) {
+				const topStackToken = stack[stack.length - 1];
+				if (isLeftBracket(topStackToken)) {
+					stack.pop();
+					logResults(stack, output);
+					break;
+				} else {
+					stack.pop();
+					output.push(topStackToken);
+					logResults(stack, output);
+					continue;
+				}
+			}
+			continue;
 		}
+		
+		if (isOperator(token) && (stack.length === 0 || stack[0] === '(')) {
+			stack.push(token);
+			logResults(stack, output);
+			continue;
+		}
+		
+		if (isOperator(token)) {
+			if (
+				getPrecedence(token) > getPrecedence(stack[stack.length - 1]) ||
+				(getPrecedence(token) ===
+				getPrecedence(stack[stack.length - 1]) &&
+				isRightAssociative(token))
+				) {
+					stack.push(token);
+				}
+				logResults(stack, output);
+				console.log("I'm here!")
+				continue;
+			}
+			
+		if (isOperator(token)) {
+			if (
+				getPrecedence(token) <=
+				getPrecedence(stack[stack.length - 1]) &&
+				isLeftAssociative(token)
+				) {
+					while (
+						getPrecedence(token) <=
+						getPrecedence(stack[stack.length - 1]) &&
+						isLeftAssociative(token)
+						) {
+							let removedToken = stack.pop() as string;
+							output.push(removedToken);
+							logResults(stack, output);
+						}
+						stack.push(token);
+					}
+					logResults(stack, output);
+			continue;
+		}
+		
+		stack.forEach(token => {
+			stack.pop();
+			output.push(token);
+			logResults(stack, output);
+		});
 	}
 }
 
@@ -59,7 +124,7 @@ parseInfix(testTokens);
 function logResults(stack, output) {
 	console.log(`Stack: ${stack}`);
 	console.log(`Output: ${output}`);
-	console.log('------------------')
+	console.log('------------------');
 }
 
 function isOperand(token: string) {
@@ -86,8 +151,50 @@ function isRightBracket(token: string) {
 	}
 }
 
+function isOperator(token: string) {
+	if (/[\^*/+-]/.test(token)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function getPrecedence(token: string) {
+	if (/[+-]/.test(token)) {
+		return 1;
+	}
+	if (/[*/]/.test(token)) {
+		return 2;
+	}
+	if (/[\^]/.test(token)) {
+		return 3;
+	} else {
+		return 0;
+	}
+}
+
+function isLeftAssociative(token: string) {
+	if (/[*/+-]/.test(token)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isRightAssociative(token: string) {
+	if (/[\^]/.test(token)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 describe('Shunting Yard - Parses infix to postfix', () => {
 	test('test config', () => {
 		expect('5').toEqual('5');
 	});
+
+	test('Is left?', () => {
+		expect(isLeftAssociative('++')).toBe(true);
+	})
 });
