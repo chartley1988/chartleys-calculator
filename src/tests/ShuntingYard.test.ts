@@ -1,5 +1,6 @@
 import { test, expect } from 'vitest';
 
+// String Parser
 function splitString(inputString: string): string[] {
 	const splitTokens = inputString.split(
 		/[\s]|(?=[\^*/+-])|(?<=[\^*/+-])|(?<=[\\(\\)])|(?=[\\(\\)])/g
@@ -8,17 +9,7 @@ function splitString(inputString: string): string[] {
 	return removeEmpties;
 }
 
-/*
-PSEUDO CODE
-===================================
-Output  =   [] (Represents finished Reverse Polish Notation)
-Stack   =   [] (Represents a list of operators, a staging area)
-Tokens  =   [] (Input data)
-
-*/
-
-const testTokens = splitString('4+18/(9-3)');
-
+// Shunting Yard
 function parseInfix(tokens) {
 	const input: string[] = tokens.map((x) => x);
 	console.log(`Input: ${input}`);
@@ -84,6 +75,7 @@ function parseInfix(tokens) {
 			stack.pop();
 			logResults(stack, output);
 		}
+
 	}
 	while (stack.length > 0) {
 		// Pop operators from stack on to output
@@ -91,9 +83,9 @@ function parseInfix(tokens) {
 		output.push(movedToken);
 		logResults(stack, output);
 	}
-}
 
-parseInfix(testTokens);
+	return output;
+}
 
 function logResults(stack, output) {
 	console.log(`Stack: ${stack}`);
@@ -163,12 +155,77 @@ function isRightAssociative(token: string) {
 	}
 }
 
+function operateRPN(queue: string[]) {
+	const input = queue.map(token => token);
+	const stack: string[] = []
+	console.log(input);
+	input.forEach(token => {
+		if(/^\d*\.?\d*$/.test(token)) {
+			stack.push(token);
+		};
+
+		if (/[\^*/+-]/.test(token)) {
+			if(token === "+") {
+				const num1 = Number(stack.pop());
+				const num2 = Number(stack.pop());
+				const answer = addNumbers(num1, num2);
+				stack.push(String(answer));
+				console.log(stack);
+			};
+
+			if(token === "-") {
+				const num2 = Number(stack.pop());
+				const num1 = Number(stack.pop());
+				const answer = subtractNumbers(num1, num2);
+				stack.push(String(answer));
+				console.log(stack);
+			};
+
+			if(token === "*") {
+				const num2 = Number(stack.pop());
+				const num1 = Number(stack.pop());
+				const answer = multiplyNumbers(num1, num2);
+				stack.push(String(answer));
+				console.log(stack);
+			};
+
+			if(token === "/") {
+				const num2 = Number(stack.pop());
+				const num1 = Number(stack.pop());
+				const answer = divideNumbers(num1, num2);
+				stack.push(String(answer));
+				console.log(stack);
+			};
+		};
+	});
+}
+// Test equations
+const testTokens = splitString('9*6*2/4.56');
+const equationRPN = parseInfix(testTokens);
+operateRPN(equationRPN);
+
+//
 describe('Shunting Yard - Parses infix to postfix', () => {
 	test('test config', () => {
 		expect('5').toEqual('5');
 	});
 
-	test('Is left?', () => {
-		expect(isLeftAssociative('++')).toBe(true);
-	});
+
 });
+
+function addNumbers(a: number, b: number): number {
+	return a + b;
+}
+
+function subtractNumbers(a: number, b: number): number {
+	return a - b;
+}
+
+function multiplyNumbers(a: number, b: number): number {
+	return a * b;
+}
+
+function divideNumbers(a: number, b: number): number | string {
+	if (b === 0) return 'Error! Divide by Zero';
+	return a / b;
+}
