@@ -2,6 +2,8 @@ import { test, expect } from 'vitest';
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import EditorLine from '../components/EditorLine';
+import operators from '../math/operators';
+import splitString from '../math/string_parse';
 
 describe('String parser', () => {
 
@@ -23,11 +25,6 @@ describe('String parser', () => {
 		return input.value;
 	}
 
-	function splitString (inputString: string): string[] {
-	const splitTokens = inputString.split(/[\s]|(?=[\^*/+-])|(?<=[\^*/+-])|(?<=[\\(\\)])|(?=[\\(\\)])/g);
-		const removeEmpties = splitTokens.filter(entry => entry !== "");
-		return removeEmpties;
-	}
 
 	test('Does getInputValue return string', () => {
 		expect(getInputValue('Carson Hartley')).toEqual('Carson Hartley');
@@ -103,81 +100,62 @@ describe('String parser', () => {
 	});
 });
 
-// Functions
-
-function addNumbers(a: number, b: number): number {
-	return a + b;
-}
-
-function subtractNumbers(a: number, b: number): number {
-	return a - b;
-}
-
-function multiplyNumbers(a: number, b: number): number {
-	return a * b;
-}
-
-function divideNumbers(a: number, b: number): number | string {
-	if (b === 0) return 'Error! Divide by Zero';
-	return a / b;
-}
-
 describe('Addition', () => {
 	test('Add A + B', () => {
-		expect(addNumbers(1, 3)).toEqual(4);
+		expect(operators().addNumbers(1, 3)).toEqual(4);
 	});
 
 	test('Add A + (-B)', () => {
-		expect(addNumbers(1, -3)).toEqual(-2);
+		expect(operators().addNumbers(1, -3)).toEqual(-2);
 	});
 
 	test('Add (-A) + (-B)', () => {
-		expect(addNumbers(-11, -3)).toEqual(-14);
+		expect(operators().addNumbers(-11, -3)).toEqual(-14);
 	});
 });
 
 describe('Subtraction', () => {
 	test('Sub A - B', () => {
-		expect(subtractNumbers(5, 3)).toEqual(2);
+		expect(operators().subtractNumbers(5, 3)).toEqual(2);
 	});
 
 	test('Sub A - (-B)', () => {
-		expect(subtractNumbers(1, -3)).toEqual(4);
+		expect(operators().subtractNumbers(1, -3)).toEqual(4);
 	});
 
 	test('Sub (A) - (B) where A is smaller than B', () => {
-		expect(subtractNumbers(3, 6)).toEqual(-3);
+		expect(operators().subtractNumbers(3, 6)).toEqual(-3);
 	});
 });
 
 describe('Multiply', () => {
 	test('Multiply A * B', () => {
-		expect(multiplyNumbers(8, 12)).toEqual(96);
+		expect(operators().multiplyNumbers(8, 12)).toEqual(96);
 	});
 
 	test('Multiply A + (-B)', () => {
-		expect(multiplyNumbers(1, -3)).toEqual(-3);
+		expect(operators().multiplyNumbers(1, -3)).toEqual(-3);
 	});
 
 	test('Multiply (-A) + (-B)', () => {
-		expect(multiplyNumbers(-11, -3)).toEqual(33);
+		expect(operators().multiplyNumbers(-11, -3)).toEqual(33);
 	});
 });
 
 describe('Divide', () => {
 	test('Divide A / B', () => {
-		expect(divideNumbers(8, 16)).toEqual(0.5);
+		expect(operators().divideNumbers(8, 16)).toEqual(0.5);
 	});
 
 	test('Divide A / (-B)', () => {
-		expect(divideNumbers(-10, 5)).toEqual(-2);
+		expect(operators().divideNumbers(-10, 5)).toEqual(-2);
 	});
 
 	test('Divide (-A) / (B)', () => {
-		expect(divideNumbers(-9, -3)).toEqual(3);
+		expect(operators().divideNumbers(-9, -3)).toEqual(3);
 	});
 
 	test('Divide by Zero', () => {
-		expect(divideNumbers(10, 0)).toEqual('Error! Divide by Zero');
+		expect(operators().divideNumbers(10, 0)).toEqual('Error! Divide by Zero');
 	});
 });
