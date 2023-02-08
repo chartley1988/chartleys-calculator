@@ -1,38 +1,43 @@
 import { useState } from 'react';
 import '../css/editor.css';
-import TextareaAutosize from 'react-textarea-autosize';
+import '../css/result.css';
+import LineInput from './LineInput';
+import splitString from '../math/string_parse';
+import shuntingYard from '../math/shunting_yard';
+import operateRPN from '../math/operate_RPN';
 
 function EditorLine(props) {
 	const { lineNumber, value } = props;
-	console.log(value);
+	const  [ result, setResult ]  = useState('');
 
-	const input = (
-		<TextareaAutosize
-			aria-label='textInput'
-			value= {value}
-			className='editor-input-line'
-			id={lineNumber}
-			type='text'
-			onChange={getInputValue}
-			data-testid="testEditorLine"
-		></TextareaAutosize>
-    );
-    
-    function getInputValue() {
-      const lineText = document.getElementById(lineNumber).value;
-      return lineText;
-    }
+	function getInputValue() {
+		const lineText = document.getElementById(`input-${lineNumber}`).value;
+		console.log(lineText);
+		return lineText;
+	}
 
-
+	function calculateResult() {
+		const input = getInputValue();
+		const tokens = splitString(input);
+		const rpn = shuntingYard().parseInfix(tokens);
+		const result = operateRPN(rpn);
+		setResult(result);
+	}
 
 	return (
-		<div>
+		<li id={`line-${lineNumber}`}>
 			<div className='editor-line-flex'>
-				<p className='editor-line-number'>{lineNumber}</p>
-				{input}
+				<div className='input-container'>
+					<p className='editor-line-number'>{lineNumber}</p>
+					<LineInput
+						lineNumber={lineNumber}
+						onChange={calculateResult}
+					/>
+				</div>
+				<div className='Result'>{result}</div>
 			</div>
 			<hr></hr>
-		</div>
+		</li>
 	);
 }
 

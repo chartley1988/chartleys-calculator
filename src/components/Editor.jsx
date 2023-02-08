@@ -3,17 +3,31 @@ import '../css/editor.css';
 import EditorLine from './EditorLine';
 
 function Editor() {
-	const string = 'Carson';
+
+	const [data, setData] = useState([
+			{
+				line_number: 1,
+				input_string: "",
+				output_string: ""
+			},
+			{
+				line_number: 200,
+				input_string: "",
+				output_string: ""
+			},
+			{
+				line_number: 3,
+				input_string: "",
+				output_string: ""
+			}
+		])
 
 	return (
-		<div className='Editor'>
-			<EditorLine lineNumber='01'></EditorLine>
-			<EditorLine lineNumber='02'></EditorLine>
-			<EditorLine lineNumber='03'></EditorLine>
-			<EditorLine lineNumber='04'></EditorLine>
-			<EditorLine lineNumber='05'></EditorLine>
-			<EditorLine lineNumber='06'></EditorLine>
-		</div>
+		<ul className='Editor'>
+			{data.map(entry => {
+				return <EditorLine key={entry.line_number} lineNumber={entry.line_number} />
+			})}
+		</ul>
 	);
 }
 

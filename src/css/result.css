@@ -1,0 +1,13 @@
+.Result {
+    width: 200px;
+    align-self: stretch;
+    background-color: rgb(var(--accent-2),0.3);
+    border-left: solid rgb(var(--accent-2)) 2px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    font-size: 1.5rem;
+}

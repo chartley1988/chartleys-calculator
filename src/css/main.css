@@ -75,17 +75,6 @@ footer > button:hover {
 }
 
 
-
-
-.Results {
-    grid-column: 2/3;
-    grid-row: 3/4;
-    height: 100%;
-    background-color: rgb(var(--accent-2),0.3);
-    border-left: solid rgb(var(--accent-2)) 2px;
-}
-
-
 @media only screen and (max-width: 800px) {
     header {
         font-size: 2rem;

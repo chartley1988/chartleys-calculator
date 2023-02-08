@@ -49,8 +49,11 @@ function operateRPN(queue: string[]) {
 				stack.push(String(answer));
 				console.log(stack);
 			};
+
 		};
 	});
+	return stack[0];
+	
 }
 
 export default operateRPN

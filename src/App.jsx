@@ -10,7 +10,6 @@ function App() {
     <div className="App">
       <header>Stacked Calculator </header>
       <Editor></Editor>
-      <Results></Results>
       <Footer></Footer>
     </div>
   )
