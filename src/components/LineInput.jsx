@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../css/editor.css';
 import TextareaAutosize from 'react-textarea-autosize';
 
 function LineInput(props) {
 	const { lineNumber, onChange } = props;
 	const [ inputString, setInputString ] = useState("");
-
 
 
 	return (
