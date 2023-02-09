@@ -1,5 +1,5 @@
 function splitString(inputString: string): string[] {
-	const splitTokens = inputString.match(
+	const splitTokens: any = inputString.match(
 		(/([\^*/+-])|([\\(\\)])|\d*\.?\d*|/g)
 	);
 	const removeEmpties = splitTokens.filter((entry) => entry !== '');
