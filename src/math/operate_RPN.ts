@@ -3,7 +3,6 @@ import operators from "./operators";
 function operateRPN(queue: string[]) {
 	const input = queue.map(token => token);
 	const stack: string[] = []
-	console.log(input);
 	input.forEach(token => {
 		if(/^\d*\.?\d*$/.test(token)) {
 			stack.push(token);
@@ -15,7 +14,6 @@ function operateRPN(queue: string[]) {
 				const num2 = Number(stack.pop());
 				const answer = operators().addNumbers(num1, num2);
 				stack.push(String(answer));
-				console.log(stack);
 			};
 
 			if(token === "-") {
@@ -23,7 +21,6 @@ function operateRPN(queue: string[]) {
 				const num1 = Number(stack.pop());
 				const answer = operators().subtractNumbers(num1, num2);
 				stack.push(String(answer));
-				console.log(stack);
 			};
 
 			if(token === "*") {
@@ -31,7 +28,6 @@ function operateRPN(queue: string[]) {
 				const num1 = Number(stack.pop());
 				const answer = operators().multiplyNumbers(num1, num2);
 				stack.push(String(answer));
-				console.log(stack);
 			};
 
 			if(token === "/") {
@@ -39,7 +35,6 @@ function operateRPN(queue: string[]) {
 				const num1 = Number(stack.pop());
 				const answer = operators().divideNumbers(num1, num2);
 				stack.push(String(answer));
-				console.log(stack);
 			};
 
 			if(token === "^") {
@@ -47,7 +42,6 @@ function operateRPN(queue: string[]) {
 				const num1 = Number(stack.pop());
 				const answer = operators().exponentNumbers(num1, num2);
 				stack.push(String(answer));
-				console.log(stack);
 			};
 
 		};

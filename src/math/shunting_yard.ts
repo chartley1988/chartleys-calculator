@@ -2,21 +2,15 @@ function shuntingYard () {
 	// Shunting Yard
 	function parseInfix(tokens) {
 		const input: string[] = tokens.map((x) => x);
-		console.log(`Input: ${input}`);
-		console.log('------------------');
-	
 		const stack: string[] = [];
 		const output: string[] = [];
-		logResults(stack, output);
 	
 		for (let i = 0; i < tokens.length; i++) {
 			const token: string = tokens[i];
-			console.log(`CURRENT TOKEN: ${token}`)
 	
 			// If it's a number, add it to the output
 			if (isOperand(token)) {
 				output.push(token);
-				logResults(stack, output);
 				continue;
 			}
 	
@@ -24,8 +18,6 @@ function shuntingYard () {
 			if (isOperator(token)) {
 				// While there's an operator on top of the stack with greater precedence
 				if (stack.length !== 0) {
-					console.log(getPrecedence(stack[stack.length - 1]));
-					console.log(getPrecedence(token));
 					while (
 						(stack[stack.length - 1] !== '(' &&
 							getPrecedence(stack[stack.length - 1]) -
@@ -42,14 +34,12 @@ function shuntingYard () {
 					}
 				}
 				stack.push(token);
-				logResults(stack, output);
 				continue;
 			}
 	
 			// If it's a left bracket, push it to the stack
 			if (isLeftBracket(token)) {
 				stack.push(token);
-				logResults(stack, output);
 				continue;
 			}
 	
@@ -63,7 +53,6 @@ function shuntingYard () {
 				}
 				// Pop the left bracket and discard it
 				stack.pop();
-				logResults(stack, output);
 			}
 	
 		}
@@ -71,7 +60,6 @@ function shuntingYard () {
 			// Pop operators from stack on to output
 			const movedToken = stack.pop() as string;
 			output.push(movedToken);
-			logResults(stack, output);
 		}
 	
 		return output;

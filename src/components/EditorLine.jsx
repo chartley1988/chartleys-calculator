@@ -12,7 +12,6 @@ function EditorLine(props) {
 
 	function getInputValue() {
 		const lineText = document.getElementById(`input-${lineNumber}`).value;
-		console.log(lineText);
 		return lineText;
 	}
 

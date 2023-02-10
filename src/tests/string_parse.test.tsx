@@ -3,43 +3,28 @@ import operators from '../math/operators';
 import splitString from '../math/string_parse';
 
 describe('String parser', () => {
-
 	test('Does getInputValue return numbers as string', () => {
 		expect('1 + 1').toEqual('1 + 1');
 	});
 
 	test('Split string at spaces', () => {
 		const testString: string = 'Carson Hartley';
-		expect(splitString(testString)).toEqual([
-			'Carson',
-			'Hartley'
-		])
+		expect(splitString(testString)).toEqual(['Carson', 'Hartley']);
 	});
 
 	test('Split string at spaces, remove extra spaces', () => {
 		const testString: string = 'Carson     Hartley';
-		expect(splitString(testString)).toEqual([
-			'Carson',
-			'Hartley'
-		])
+		expect(splitString(testString)).toEqual(['Carson', 'Hartley']);
 	});
 
 	test('Mix numbers and spaces', () => {
 		const testString: string = '1  + 2';
-		expect(splitString(testString)).toEqual([
-			'1',
-			'+',
-			'2'
-		])
+		expect(splitString(testString)).toEqual(['1', '+', '2']);
 	});
 
 	test('Split at operators, but include operators', () => {
 		const testString: string = 'Carson+   Hartley';
-		expect(splitString(testString)).toEqual([
-			'Carson',
-			'+',
-			'Hartley'
-		])
+		expect(splitString(testString)).toEqual(['Carson', '+', 'Hartley']);
 	});
 
 	test('Split at operators, but include operators', () => {
@@ -51,8 +36,8 @@ describe('String parser', () => {
 			'-',
 			'5',
 			'+',
-			'3'
-		])
+			'3',
+		]);
 	});
 
 	test('Split at parenthesis and exponents', () => {
@@ -64,13 +49,59 @@ describe('String parser', () => {
 			'6',
 			'^',
 			'3',
-			')'
-		])
+			')',
+		]);
 	});
 
 	test('Split at nested parenthesis', () => {
 		const testString: string = `5+(4(9*3))`;
-		expect(splitString(testString)). toEqual(['5','+','(','4','(','9','*','3',')',')'])
+		expect(splitString(testString)).toEqual([
+			'5',
+			'+',
+			'(',
+			'4',
+			'(',
+			'9',
+			'*',
+			'3',
+			')',
+			')',
+		]);
+	});
+
+	test('Multiply number after parenthesis', () => {
+		const testString: string = `5+ (4*9)3`;
+		expect(splitString(testString)).toEqual([
+			'5',
+			'+',
+			'(',
+			'4',
+			'*',
+			'9',
+			')',
+			'3',
+		]);
+	});
+
+	test('Multiply number befor parenthesis', () => {
+		const testString: string = `5+ 3(4*9)`;
+		expect(splitString(testString)).toEqual([
+			'5',
+			'+',
+			'3',
+			'(',
+			'4',
+			'*',
+			'9',
+			')',
+		]);
+	});
+
+	test('Multiply parenthesis by parenthesis', () => {
+		const testString: string = `(5*2)(2*9)`;
+		expect(splitString(testString)).toEqual([
+			'(','5','*','2',')','(','2','*','9',')'
+		]);
 	});
 });
 
@@ -130,6 +161,8 @@ describe('Divide', () => {
 	});
 
 	test('Divide by Zero', () => {
-		expect(operators().divideNumbers(10, 0)).toEqual('Error! Divide by Zero');
+		expect(operators().divideNumbers(10, 0)).toEqual(
+			'Error! Divide by Zero'
+		);
 	});
 });

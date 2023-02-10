@@ -11,7 +11,7 @@ function Editor() {
 				output_string: ""
 			},
 			{
-				line_number: 200,
+				line_number: 2,
 				input_string: "",
 				output_string: ""
 			},

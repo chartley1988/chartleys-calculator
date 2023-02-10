@@ -9,67 +9,64 @@ describe('String parser', () => {
 
 	test('Split string at spaces', () => {
 		const testString: string = 'Carson Hartley';
-		expect(splitString(testString)). toEqual([
-			'Carson',
-			'Hartley'
-		])
+		expect(splitString(testString)).toEqual(['Carson', 'Hartley']);
 	});
 
 	test('Split string at spaces, remove extra spaces', () => {
 		const testString: string = 'Carson     Hartley';
-		expect(splitString(testString)). toEqual([
-			'Carson',
-			'Hartley'
-		])
+		expect(splitString(testString)).toEqual(['Carson', 'Hartley']);
 	});
 
 	test('Mix numbers and spaces', () => {
 		const testString: string = '1  + 2';
-		expect(splitString(testString)). toEqual([
-			'1',
-			'+',
-			'2'
-		])
+		expect(splitString(testString)).toEqual(['1', '+', '2']);
 	});
 
 	test('Split at operators, but include operators', () => {
 		const testString: string = 'Carson+   Hartley';
-		expect(splitString(testString)). toEqual([
-			'Carson',
-			'+',
-			'Hartley'
-		])
+		expect(splitString(testString)).toEqual(['Carson', '+', 'Hartley']);
 	});
 
 	test('Split at operators, but include operators', () => {
 		const testString: string = 'Carson+ Hartley - 5 +    3';
-		expect(splitString(testString)). toEqual([
+		expect(splitString(testString)).toEqual([
 			'Carson',
 			'+',
 			'Hartley',
 			'-',
 			'5',
 			'+',
-			'3'
-		])
+			'3',
+		]);
 	});
 
 	test('Split at parenthesis and exponents', () => {
 		const testString: string = `(5+6^3)`;
-		expect(splitString(testString)). toEqual([
+		expect(splitString(testString)).toEqual([
 			'(',
 			'5',
 			'+',
 			'6',
 			'^',
 			'3',
-			')'
-		])
+			')',
+		]);
 	});
 
 	test('Split at nested parenthesis', () => {
 		const testString: string = `5+(4(9*3))`;
-		expect(splitString(testString)). toEqual(['5','+','(','4','(','9','*','3',')',')'])
+		expect(splitString(testString)).toEqual([
+			'5',
+			'+',
+			'(',
+			'4',
+			'(',
+			'9',
+			'*',
+			'3',
+			')',
+			')',
+		]);
 	});
 });
 
@@ -129,6 +126,8 @@ describe('Divide', () => {
 	});
 
 	test('Divide by Zero', () => {
-		expect(operators().divideNumbers(10, 0)).toEqual('Error! Divide by Zero');
+		expect(operators().divideNumbers(10, 0)).toEqual(
+			'Error! Divide by Zero'
+		);
 	});
 });
