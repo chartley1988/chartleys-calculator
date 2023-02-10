@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import './css/main.css'
 import Editor from './components/Editor'
-import Results from './components/Results'
 import Footer from './components/Footer'
 
 function App() {

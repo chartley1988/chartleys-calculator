@@ -1,7 +1,4 @@
 import { test, expect } from 'vitest';
-import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
-import EditorLine from '../components/EditorLine';
 import operators from '../math/operators';
 import splitString from '../math/string_parse';
 

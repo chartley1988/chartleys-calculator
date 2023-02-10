@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../css/editor.css';
 import TextareaAutosize from 'react-textarea-autosize';
 
