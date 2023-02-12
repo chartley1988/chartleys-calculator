@@ -55,7 +55,6 @@ div:has(.Editor) {
 
     display: flex;
     flex-direction: row;
-
 }
 
 .editor-line-number {

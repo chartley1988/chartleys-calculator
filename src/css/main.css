@@ -34,43 +34,6 @@ header {
     font-weight: 900;
 }
 
-footer {
-    grid-column: 1/2;
-    width: 100%;
-
-    --size: 4rem;
-    position: fixed;
-    bottom: 0px;
-    height: var(--size);
-    background-color: white;
-    border-top: rgb(var(--accent)) solid 2px;
-
-    display: flex;
-    gap: 0.5rem;
-    padding: 0.5rem;
-}
-
-footer > button {
-    font-family: 'Share Tech Mono', monospace;
-    font-weight: 900;
-    font-size: 1.5rem;
-    color: var(--font);
-    background-color: rgb(var(--accent), 0.2);
-    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-    border: none;
-    border-radius: 0.75rem;
-}
-
-footer > button:hover {
-    background-color: rgb(var(--accent), 0.4);
-}
-
-footer > button > svg {
-    width: 24px;
-    height: 24px;
-}
-
-
 .App {
     height: 100vh;
     width: 100;
@@ -78,6 +41,14 @@ footer > button > svg {
     display: grid;
     grid-template-columns: 2fr 0.5fr;
     grid-template-rows: auto auto 1fr;
+}
+
+.mobile {
+    display: none;
+}
+
+.desktop {
+    display: block;
 }
 
 
@@ -88,6 +59,14 @@ footer > button > svg {
 
     .App {
         grid-template-columns: 2fr 1fr;
+    }
+
+    .mobile {
+        display: block;
+    }
+    
+    .desktop {
+        display: none;
     }
 }
 

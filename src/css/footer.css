@@ -1,0 +1,61 @@
+footer {
+    grid-column: 1/2;
+    width: 100%;
+
+    --size: 4rem;
+    position: fixed;
+    bottom: 0px;
+    height: var(--size);
+    background-color: white;
+    border-top: rgb(var(--accent)) solid 2px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.footer-button {
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--font);
+    background-color: rgb(var(--accent), 0.2);
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+    border: none;
+    border-radius: 0.75rem;
+}
+
+.footer-button:hover {
+    background-color: rgb(var(--accent), 0.4);
+}
+
+.footer-button > svg {
+    width: 24px;
+    height: 24px;
+}
+
+#editor-sum {
+    font-size: 1.75rem;
+    font-weight: 900;
+    margin-right: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --font: #F7FBE8;
+    }
+
+    body {
+        background-color: rgb(37, 37, 37);
+    }
+
+    footer {
+        background-color: rgb(22, 22, 22);
+    }
+
+    #editor-sum {
+        color: white;
+    }
+}
