@@ -1,7 +1,7 @@
 import '../css/footer.css'
 
 function Footer(props) {
-   const { clearSheet, addLine } = props
+   const { clearSheet, addLine, sum } = props
 
 	return (
 		<footer>
@@ -18,7 +18,7 @@ function Footer(props) {
                 <button className='footer-button mobile' onClick={addLine} >+</button>
 
             </div>
-            <p id="editor-sum">{`Sum: 42`}</p>
+            <p id="editor-sum">{`Sum: ${sum}`}</p>
 		</footer>
 	);
 }

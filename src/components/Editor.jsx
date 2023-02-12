@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../css/editor.css';
 import EditorLine from './EditorLine';
 import splitString from '../math/string_parse';
@@ -8,7 +8,6 @@ import Footer from './Footer';
 import FooterSelected from './FooterSelected';
 
 function Editor() {
-
 
 	const [data, setData] = useState([
 		{
@@ -32,7 +31,14 @@ function Editor() {
 	]);
 
 	const [lineSelected, setLineSelected] = useState(false);
+
 	const [currentLine, setCurrentLine] = useState(0);
+
+	const [sum, setSum ] = useState(0);
+
+	useEffect(() => {
+		calculateSum();
+	  }, [data]);
 
 	function calculateResult(input, line_number) {
 		const updatedData = data.slice();
@@ -45,6 +51,16 @@ function Editor() {
 		entry.input_string = input;
 		entry.output_string = result;
 		setData(updatedData);
+	}
+
+	function calculateSum() {
+		let sum = 0;
+		data.forEach(entry => {
+			const value = Number(entry.output_string);
+			sum += value;
+		})
+		console.log(sum);
+		setSum(sum);
 	}
 
 	function onClickLine(line_number) {
@@ -83,7 +99,7 @@ function Editor() {
 				/>
 			);
 		} else {
-			return <Footer clearSheet={clearSheet} addLine={addLine} />;
+			return <Footer clearSheet={clearSheet} addLine={addLine} sum={sum} />;
 		}
 	}
 
@@ -163,12 +179,10 @@ function Editor() {
 	}
 
 	function updateLineInputs(input_data) {
-		//console.log(input_data)
 		const inputs = document.getElementsByClassName('editor-input-line');
 		const inputsArray = Array.from(inputs);
 		inputsArray.forEach(entry => {
 			const index = inputsArray.indexOf(entry);
-			//console.log(input_data[index])
 			entry.value = input_data[index].input_string
 		})
 	}
