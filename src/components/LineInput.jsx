@@ -3,9 +3,7 @@ import '../css/editor.css';
 import TextareaAutosize from 'react-textarea-autosize';
 
 function LineInput(props) {
-	const { lineNumber, onChange } = props;
-	const [ inputString, setInputString ] = useState("");
-
+	const { lineNumber, onChange, styleProp, onClickLine } = props;
 
 	return (
 		<TextareaAutosize
@@ -14,7 +12,11 @@ function LineInput(props) {
 			id={`input-${lineNumber}`}
 			type='text'
 			onChange={onChange}
+            onClick={() => {
+                onClickLine(lineNumber)
+            }}
 			data-testid="testEditorLine"
+            style={styleProp}
 		></TextareaAutosize>
 	);
 }

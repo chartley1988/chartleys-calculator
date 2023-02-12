@@ -46,6 +46,7 @@ footer {
     border-top: rgb(var(--accent)) solid 2px;
 
     display: flex;
+    gap: 0.5rem;
     padding: 0.5rem;
 }
 
@@ -62,6 +63,11 @@ footer > button {
 
 footer > button:hover {
     background-color: rgb(var(--accent), 0.4);
+}
+
+footer > button > svg {
+    width: 24px;
+    height: 24px;
 }
 
 
