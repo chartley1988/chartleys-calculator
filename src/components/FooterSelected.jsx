@@ -1,7 +1,7 @@
 import '../css/footer.css'
 
 function FooterSelected(props) {
-	const { moveLineUp, moveLineDown, currentLine } = props;
+	const { moveLineUp, moveLineDown, currentLine, sum } = props;
 	
 	return (
 		<footer>
@@ -44,6 +44,7 @@ function FooterSelected(props) {
 				</svg>
 			</button>
 			</div>
+			<p id="editor-sum">{`Sum: ${sum}`}</p>
 		</footer>
 	);
 }

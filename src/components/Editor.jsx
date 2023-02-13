@@ -87,7 +87,14 @@ function Editor() {
 		setData(updatedData);
 	}
 
-	function clearLineSelection() {}
+	function clearLineSelection() {
+		const updatedData = data.slice();
+		updatedData.forEach((entry) => {
+			entry.selected = false;
+		});
+		setLineSelected(false);
+		setCurrentLine(0);
+	}
 
 	function renderFooter() {
 		if (lineSelected) {
@@ -96,6 +103,7 @@ function Editor() {
 					moveLineUp={moveLineUp}
 					moveLineDown={moveLineDown}
 					currentLine={currentLine}
+					sum={sum}
 				/>
 			);
 		} else {
@@ -104,14 +112,16 @@ function Editor() {
 	}
 
 	function clearSheet() {
-		setData([
+		const updatedData = [
 			{
 				line_number: 1,
 				input_string: '',
 				output_string: '',
 				selected: false,
 			},
-		]);
+		]
+		setData(updatedData);
+		updateLineInputs(updatedData);
 	}
 
 	function addLine() {
@@ -188,7 +198,7 @@ function Editor() {
 	}
 
 	return (
-		<div onClick={clearLineSelection}>
+		<div onClickCapture={clearLineSelection}>
 			<ul className='Editor'>
 				{data.map((entry) => {
 					return (
