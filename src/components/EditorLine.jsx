@@ -22,7 +22,8 @@ function EditorLine(props) {
 								? 'rgb(var(--accent-2),0.7)'
 								: 'rgb(var(--accent-2),0.3)',
 						}}
-						onClick={() => {
+						onClick={(event) => {
+							event.stopPropagation();
 							onClickLine(lineNumber);
 						}}
 					>

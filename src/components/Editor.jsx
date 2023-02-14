@@ -56,7 +56,10 @@ function Editor() {
 	function calculateSum() {
 		let sum = 0;
 		data.forEach(entry => {
-			const value = Number(entry.output_string);
+			let value = Number(entry.output_string);
+			if((entry.output_string === 'NaN') | (entry.output_string === 'Error! Divide by Zero')) {
+				value = 0;
+			}
 			sum += value;
 		})
 		console.log(sum);
@@ -198,7 +201,10 @@ function Editor() {
 	}
 
 	return (
-		<div onClickCapture={clearLineSelection}>
+		<div onClick={(event) => {
+			event.stopPropagation();
+			clearLineSelection()
+		}}>
 			<ul className='Editor'>
 				{data.map((entry) => {
 					return (
