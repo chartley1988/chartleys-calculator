@@ -61,7 +61,6 @@ function shuntingYard () {
 			const movedToken = stack.pop() as string;
 			output.push(movedToken);
 		}
-	
 		return output;
 	}
 

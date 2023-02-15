@@ -1,53 +1,67 @@
-import operators from "./operators";
+import operators from './operators';
 
 function operateRPN(queue: string[]) {
-	const input = queue.map(token => token);
-	const stack: string[] = []
-	input.forEach(token => {
-		if(/^\d*\.?\d*$/.test(token)) {
+	const input = queue.map((token) => token);
+	const stack: string[] = [];
+	input.forEach((token) => {
+		if (/^-?\d*\.?\d*$/.test(token)) {
 			stack.push(token);
-		};
-
-		if (/[\^*/+-]/.test(token)) {
-			if(token === "+") {
-				const num1 = Number(stack.pop());
-				const num2 = Number(stack.pop());
+			console.log(token);
+		}
+		if ((/[\^*/+-]/.test(token)) && !(/^-?\d*\.?\d*$/.test(token))) {
+			// Problem, it's not pushing the number to the stack if its a negative. Something to do with the operator (-)
+			const string1 = stack.pop();
+			const string2 = stack.pop();
+			const num2 = Number(string1);
+			const num1 = Number(string2);
+			printDebug(num1, num2, token, stack, input)
+			if (token === '+') {
 				const answer = operators().addNumbers(num1, num2);
+				//printDebug(num1, num2, token, stack, input, answer)
 				stack.push(String(answer));
-			};
+			}
 
-			if(token === "-") {
-				const num2 = Number(stack.pop());
-				const num1 = Number(stack.pop());
+			if (token === '-') {
 				const answer = operators().subtractNumbers(num1, num2);
+				//printDebug(num1, num2, token, stack, input, answer)
 				stack.push(String(answer));
-			};
+			}
 
-			if(token === "*") {
-				const num2 = Number(stack.pop());
-				const num1 = Number(stack.pop());
+			if (token === '*') {
 				const answer = operators().multiplyNumbers(num1, num2);
+				//printDebug(num1, num2, token, stack, input, answer)
 				stack.push(String(answer));
-			};
+			}
 
-			if(token === "/") {
-				const num2 = Number(stack.pop());
-				const num1 = Number(stack.pop());
+			if (token === '/') {
 				const answer = operators().divideNumbers(num1, num2);
+				//printDebug(num1, num2, token, stack, input, answer)
 				stack.push(String(answer));
-			};
+			}
 
-			if(token === "^") {
-				const num2 = Number(stack.pop());
-				const num1 = Number(stack.pop());
+			if (token === '^') {
 				const answer = operators().exponentNumbers(num1, num2);
+				//printDebug(num1, num2, token, stack, input, answer)
 				stack.push(String(answer));
-			};
-
-		};
+			}
+		}
 	});
-	return stack[0];
-	
+	let output: number = Math.round(Number(stack[0]) * 10000)/10000
+	if(output > 100000000) {
+		return output.toExponential(4);
+	}
+	return output.toString();
+
+	function printDebug(num1, num2?, token?, stack?, input?, answer?) {
+		console.table([
+			`num1: ${num1}`,
+			`num2: ${num2}`,
+			`token: ${token}`,
+			`stack: ${stack}`,
+			`input: ${input}`,
+			`answer: ${answer}`
+		]);
+	}
 }
 
-export default operateRPN
+export default operateRPN;

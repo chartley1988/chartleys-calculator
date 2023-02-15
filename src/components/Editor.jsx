@@ -62,7 +62,6 @@ function Editor() {
 			}
 			sum += value;
 		})
-		console.log(sum);
 		setSum(sum);
 	}
 
