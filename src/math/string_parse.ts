@@ -96,7 +96,7 @@ function ifNumber(token) {
 }
 
 function ifOperator(token) {
-	if ((/[\^*/+-]/.test(token)) && !(/^-?\d*\.?\d*$/.test(token))) {
+	if ((/[\^*/+-]/.test(token)) && !(/[0-9]/.test(token))) {
 		return true;
 	}
 }

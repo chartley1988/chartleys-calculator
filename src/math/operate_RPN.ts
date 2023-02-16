@@ -5,15 +5,17 @@ function operateRPN(queue: string[]) {
 	const stack: string[] = [];
 	input.forEach((token) => {
 		if (/^-?\d*\.?\d*$/.test(token)) {
-			stack.push(token);
+			if(token !== '-'){
+				stack.push(token);
+			}
 			console.log(token);
 		}
-		if ((/[\^*/+-]/.test(token)) && !(/^-?\d*\.?\d*$/.test(token))) {
-			// Problem, it's not pushing the number to the stack if its a negative. Something to do with the operator (-)
-			const string1 = stack.pop();
+		if ((/[\^*/+-]/.test(token)) && !(/[0-9]/.test(token))) {
+			console.log(stack);
 			const string2 = stack.pop();
-			const num2 = Number(string1);
-			const num1 = Number(string2);
+			const string1 = stack.pop();
+			const num2 = Number(string2);
+			const num1 = Number(string1);
 			printDebug(num1, num2, token, stack, input)
 			if (token === '+') {
 				const answer = operators().addNumbers(num1, num2);
