@@ -5,8 +5,8 @@ function shuntingYard () {
 		const stack: string[] = [];
 		const output: string[] = [];
 	
-		for (let i = 0; i < tokens.length; i++) {
-			const token: string = tokens[i];
+		for (let i = 0; i < input.length; i++) {
+			const token: string = input[i];
 	
 			// If it's a number, add it to the output
 			if (isOperand(token)) {

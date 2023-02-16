@@ -22,15 +22,28 @@ function checkForNegatives(tokenArray: string[]) {
 	for (let i = 1; i < arrayCopy.length; i++) {
 		const token = arrayCopy[i];
 		const previousToken = arrayCopy[i - 1];
-		const nextToken = arrayCopy[i+1];
+
+		// Logic for '-(x * y)', splices in [-1] and [*] where a '-' precedes a bracket
+		if((ifSubtractOperator(previousToken) && (ifLeftBracket(token)))) {
+			const approachToken = arrayCopy[i-2];
+			if((ifOperator(approachToken)) || (i === 1)) {
+				arrayCopy[i-1] = String(-Math.abs(1))
+				arrayCopy.splice(i, 0, '*');
+				console.log(arrayCopy);
+				continue
+			}
+		}
 
 		if((ifSubtractOperator(previousToken) && (ifNumber(token)))) {
 			const approachToken = arrayCopy[i-2];
 			if(((ifOperator(approachToken)) || (ifLeftBracket(approachToken))) || (i-1 === 0)) {
 				arrayCopy[i] = String(-Math.abs(Number(token)))
 				arrayCopy.splice((i-1),1);
+				continue
 			}
 		}
+
+
 	}
 	return arrayCopy
 }
@@ -44,9 +57,7 @@ function checkBracketMultiply(tokenArray: string[]) {
 
 		if (ifLeftBracket(token)) {
 			if (ifNumber(previousToken) || ifRightBracket(previousToken)) {
-				console.log(previousToken);
 				arrayCopy.splice(i, 0, '*');
-				console.log(arrayCopy);
 				continue;
 			}
 		}
@@ -55,9 +66,7 @@ function checkBracketMultiply(tokenArray: string[]) {
 			if (i < arrayCopy.length - 1) {
 				const nextToken = arrayCopy[i + 1];
 				if (ifNumber(nextToken) || ifLeftBracket(nextToken)) {
-					console.log(nextToken);
 					arrayCopy.splice(i + 1, 0, '*');
-					console.log(arrayCopy);
 					continue;
 				}
 			}
