@@ -27,9 +27,8 @@ function FooterSelected(props) {
 			updatedData.forEach((entry) => {
 				entry.line_number = updatedData.indexOf(entry) + 1;
 			});
-			context.setData(updatedData);
+			context.updateData(updatedData);
 			updateLineInputs(updatedData);
-			context.updateStorage();
 		}
 	}
 
@@ -54,9 +53,8 @@ function FooterSelected(props) {
 			updatedData.forEach((entry) => {
 				entry.line_number = updatedData.indexOf(entry) + 1;
 			});
-			context.setData(updatedData);
+			context.updateData(updatedData);
 			updateLineInputs(updatedData);
-			context.updateStorage();
 		}
 	}
 

@@ -16,8 +16,7 @@ function Footer() {
 				selected: false,
 			},
 		];
-		context.updateStorage(updatedData)
-		context.setData(updatedData);
+		context.updateData(updatedData);
 	}
 
 	function addLine() {
@@ -29,8 +28,7 @@ function Footer() {
 			selected: false,
 		};
 		updatedData.push(newLine);
-		context.updateStorage(updatedData);
-		context.setData(updatedData);
+		context.updateData(updatedData);
 	}
 
 	return (

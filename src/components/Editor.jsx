@@ -26,7 +26,7 @@ function Editor() {
 		const storedData = localStorage.getItem('userData');
 		
 		if(storedData) {
-			dataContext.setData(JSON.parse(storedData));
+			dataContext.updateData(JSON.parse(storedData));
 		}
 	}, []);
 
@@ -42,10 +42,7 @@ function Editor() {
 		);
 		entry.input_string = input;
 		entry.output_string = result;
-
-		
-		dataContext.updateStorage(updatedData);
-		dataContext.setData(updatedData);
+		dataContext.updateData(updatedData);
 	}
 
 	function onClickLine(line_number) {
@@ -69,7 +66,8 @@ function Editor() {
 			setLineSelected(false);
 			setCurrentLine(0);
 		}
-		dataContext.setData(updatedData);
+		dataContext.updateData(updatedData);
+		
 	}
 
 	function clearLineSelection() {
