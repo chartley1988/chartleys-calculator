@@ -1,7 +1,37 @@
 import '../css/footer.css';
+import { useDataContext } from './DataContext';
+import Sum from './Sum';
 
-function Footer(props) {
-	const { clearSheet, addLine, sum } = props;
+
+function Footer() {
+
+	const context = useDataContext();
+
+	function clearSheet() {
+		const updatedData = [
+			{
+				line_number: 1,
+				input_string: '',
+				output_string: '',
+				selected: false,
+			},
+		];
+		context.updateStorage(updatedData)
+		context.setData(updatedData);
+	}
+
+	function addLine() {
+		const updatedData = context.data.slice();
+		const newLine = {
+			line_number: context.data.length + 1,
+			input_string: '',
+			output_string: '',
+			selected: false,
+		};
+		updatedData.push(newLine);
+		context.updateStorage(updatedData);
+		context.setData(updatedData);
+	}
 
 	return (
 		<footer>
@@ -51,7 +81,7 @@ function Footer(props) {
 					+
 				</button>
 			</div>
-			<p id='editor-sum'>{`Sum: ${sum}`}</p>
+			<Sum />
 		</footer>
 	);
 }

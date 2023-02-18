@@ -10,18 +10,14 @@ import { useDataContext } from './DataContext';
 
 function Editor() {
 	const dataContext = useDataContext();
-	console.log(dataContext);
 
 	const [lineSelected, setLineSelected] = useState(false);
 
 	const [currentLine, setCurrentLine] = useState(0);
 
-	const [sum, setSum] = useState(0);
-
 	useEffect(() => {
 		if(dataContext.data) {
 			updateLineInputs(dataContext.data);
-			calculateSum();
 		}
 	}, [dataContext.data])
 
@@ -34,12 +30,6 @@ function Editor() {
 		}
 	}, []);
 
-
-
-
-	function updateStorage(data) {
-		localStorage.setItem('userData', JSON.stringify(data))
-	}
 
 	function calculateResult(input, line_number) {
 
@@ -54,25 +44,8 @@ function Editor() {
 		entry.output_string = result;
 
 		
-		updateStorage(updatedData);
+		dataContext.updateStorage(updatedData);
 		dataContext.setData(updatedData);
-	}
-
-	function calculateSum() {
-
-
-		let sum = 0;
-		dataContext.data.forEach((entry) => {
-			let value = Number(entry.output_string);
-			if (
-				(entry.output_string === 'NaN') |
-				(entry.output_string === 'Error! Divide by Zero')
-			) {
-				value = 0;
-			}
-			sum += value;
-		});
-		setSum(sum);
 	}
 
 	function onClickLine(line_number) {
@@ -112,96 +85,19 @@ function Editor() {
 		if (lineSelected) {
 			return (
 				<FooterSelected
-					moveLineUp={moveLineUp}
-					moveLineDown={moveLineDown}
 					currentLine={currentLine}
-					sum={sum}
+					setCurrentLine={setCurrentLine}
+					updateLineInputs={updateLineInputs}
 				/>
 			);
 		} else {
 			return (
-				<Footer clearSheet={clearSheet} addLine={addLine} sum={sum} />
+				<Footer />
 			);
 		}
 	}
 
-	function clearSheet() {
-		const updatedData = [
-			{
-				line_number: 1,
-				input_string: '',
-				output_string: '',
-				selected: false,
-			},
-		];
-		updateStorage(updatedData)
-		dataContext.setData(updatedData);
-	}
 
-	function addLine() {
-		const updatedData = dataContext.data.slice();
-		const newLine = {
-			line_number: dataContext.data.length + 1,
-			input_string: '',
-			output_string: '',
-			selected: false,
-		};
-		updatedData.push(newLine);
-		updateStorage(updatedData);
-		dataContext.setData(updatedData);
-	}
-
-	function moveLineUp(line_number) {
-		if (line_number > 1) {
-			const updatedData = dataContext.data.slice();
-			const entry = updatedData.find(
-				(entry) => entry.line_number === line_number
-			);
-			const index = updatedData.indexOf(entry);
-			const deleted = updatedData.splice(index, 1);
-			updatedData.forEach((entry) => {
-				entry.selected = false;
-			});
-			updatedData.splice(index - 1, 0, {
-				line_number: 1, // Temp, reset below
-				input_string: deleted[0].input_string,
-				output_string: deleted[0].output_string,
-				selected: true,
-			});
-			setCurrentLine(index);
-			updatedData.forEach((entry) => {
-				entry.line_number = updatedData.indexOf(entry) + 1;
-			});
-			dataContext.setData(updatedData);
-			updateLineInputs(updatedData);
-		}
-	}
-
-	function moveLineDown(line_number) {
-		if (line_number < dataContext.data.length) {
-			const updatedData = dataContext.data.slice();
-			const entry = updatedData.find(
-				(entry) => entry.line_number === line_number
-			);
-			const index = updatedData.indexOf(entry);
-			const deleted = updatedData.splice(index, 1);
-			updatedData.forEach((entry) => {
-				entry.selected = false;
-			});
-			updatedData.splice(index + 1, 0, {
-				line_number: 1, // Temp, reset below
-				input_string: deleted[0].input_string,
-				output_string: deleted[0].output_string,
-				selected: true,
-			});
-			setCurrentLine(index + 2);
-			updatedData.forEach((entry) => {
-				entry.line_number = updatedData.indexOf(entry) + 1;
-			});
-			dataContext.setData(updatedData);
-			updateLineInputs(updatedData);
-		}
-	}
 
 	function updateLineInputs(input_data) {
 		const inputs = document.getElementsByClassName('editor-input-line');

@@ -24,11 +24,17 @@ export function DataContextProvider(props) {
 		},
 	]);
 
+    function updateStorage() {
+        localStorage.setItem('userData', JSON.stringify(data))
+    }
+
 	return (
-		<DataContext.Provider value={{ data, setData }}>
+		<DataContext.Provider value={{ data, setData, updateStorage }}>
             {props.children}
         </DataContext.Provider>
 	);
 }
 
 export const useDataContext = () => useContext(DataContext);
+
+
