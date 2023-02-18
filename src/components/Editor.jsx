@@ -6,28 +6,11 @@ import shuntingYard from '../math/shunting_yard';
 import operateRPN from '../math/operate_RPN';
 import Footer from './Footer';
 import FooterSelected from './FooterSelected';
+import { useDataContext } from './DataContext';
 
 function Editor() {
-	const [data, setData] = useState([
-		{
-			line_number: 1,
-			input_string: '',
-			output_string: '',
-			selected: false,
-		},
-		{
-			line_number: 2,
-			input_string: '',
-			output_string: '',
-			selected: false,
-		},
-		{
-			line_number: 3,
-			input_string: '',
-			output_string: '',
-			selected: false,
-		},
-	]);
+	//const dataContext = useDataContext();
+	//console.log(dataContext);
 
 	const [lineSelected, setLineSelected] = useState(false);
 

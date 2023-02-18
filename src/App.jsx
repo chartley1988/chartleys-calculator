@@ -1,5 +1,6 @@
 import './css/main.css';
 import Editor from './components/Editor';
+import { DataContextProvider } from './components/DataContext';
 
 function App() {
 	return (
@@ -21,7 +22,9 @@ function App() {
 				</svg>
 				SUMMIT
 			</header>
+			<DataContextProvider>
 			<Editor />
+			</DataContextProvider>
 		</div>
 	);
 }
