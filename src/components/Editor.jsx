@@ -9,8 +9,8 @@ import FooterSelected from './FooterSelected';
 import { useDataContext } from './DataContext';
 
 function Editor() {
-	//const dataContext = useDataContext();
-	//console.log(dataContext);
+	const dataContext = useDataContext();
+	console.log(dataContext);
 
 	const [lineSelected, setLineSelected] = useState(false);
 
@@ -19,18 +19,18 @@ function Editor() {
 	const [sum, setSum] = useState(0);
 
 	useEffect(() => {
-		if(data) {
-			updateLineInputs(data);
+		if(dataContext.data) {
+			updateLineInputs(dataContext.data);
 			calculateSum();
 		}
-	}, [data])
+	}, [dataContext.data])
 
 
 	useEffect(() => {
 		const storedData = localStorage.getItem('userData');
 		
 		if(storedData) {
-			setData(JSON.parse(storedData));
+			dataContext.setData(JSON.parse(storedData));
 		}
 	}, []);
 
@@ -43,7 +43,7 @@ function Editor() {
 
 	function calculateResult(input, line_number) {
 
-		const updatedData = data.slice();
+		const updatedData = dataContext.data.slice();
 		const tokens = splitString(input);
 		const rpn = shuntingYard().parseInfix(tokens);
 		const result = operateRPN(rpn);
@@ -55,14 +55,14 @@ function Editor() {
 
 		
 		updateStorage(updatedData);
-		setData(updatedData);
+		dataContext.setData(updatedData);
 	}
 
 	function calculateSum() {
 
 
 		let sum = 0;
-		data.forEach((entry) => {
+		dataContext.data.forEach((entry) => {
 			let value = Number(entry.output_string);
 			if (
 				(entry.output_string === 'NaN') |
@@ -76,7 +76,7 @@ function Editor() {
 	}
 
 	function onClickLine(line_number) {
-		const updatedData = data.slice();
+		const updatedData = dataContext.data.slice();
 
 		const entry = updatedData.find(
 			(entry) => entry.line_number === line_number
@@ -96,11 +96,11 @@ function Editor() {
 			setLineSelected(false);
 			setCurrentLine(0);
 		}
-		setData(updatedData);
+		dataContext.setData(updatedData);
 	}
 
 	function clearLineSelection() {
-		const updatedData = data.slice();
+		const updatedData = dataContext.data.slice();
 		updatedData.forEach((entry) => {
 			entry.selected = false;
 		});
@@ -135,25 +135,25 @@ function Editor() {
 			},
 		];
 		updateStorage(updatedData)
-		setData(updatedData);
+		dataContext.setData(updatedData);
 	}
 
 	function addLine() {
-		const updatedData = data.slice();
+		const updatedData = dataContext.data.slice();
 		const newLine = {
-			line_number: data.length + 1,
+			line_number: dataContext.data.length + 1,
 			input_string: '',
 			output_string: '',
 			selected: false,
 		};
 		updatedData.push(newLine);
 		updateStorage(updatedData);
-		setData(updatedData);
+		dataContext.setData(updatedData);
 	}
 
 	function moveLineUp(line_number) {
 		if (line_number > 1) {
-			const updatedData = data.slice();
+			const updatedData = dataContext.data.slice();
 			const entry = updatedData.find(
 				(entry) => entry.line_number === line_number
 			);
@@ -172,14 +172,14 @@ function Editor() {
 			updatedData.forEach((entry) => {
 				entry.line_number = updatedData.indexOf(entry) + 1;
 			});
-			setData(updatedData);
+			dataContext.setData(updatedData);
 			updateLineInputs(updatedData);
 		}
 	}
 
 	function moveLineDown(line_number) {
-		if (line_number < data.length) {
-			const updatedData = data.slice();
+		if (line_number < dataContext.data.length) {
+			const updatedData = dataContext.data.slice();
 			const entry = updatedData.find(
 				(entry) => entry.line_number === line_number
 			);
@@ -198,7 +198,7 @@ function Editor() {
 			updatedData.forEach((entry) => {
 				entry.line_number = updatedData.indexOf(entry) + 1;
 			});
-			setData(updatedData);
+			dataContext.setData(updatedData);
 			updateLineInputs(updatedData);
 		}
 	}
@@ -220,7 +220,7 @@ function Editor() {
 			}}
 		>
 			<ul className='Editor'>
-				{data.map((entry) => {
+				{dataContext.data.map((entry) => {
 					return (
 						<EditorLine
 							key={entry.line_number}

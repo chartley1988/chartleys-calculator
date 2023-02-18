@@ -23,7 +23,7 @@ function App() {
 				SUMMIT
 			</header>
 			<DataContextProvider>
-			<Editor />
+				<Editor />
 			</DataContextProvider>
 		</div>
 	);

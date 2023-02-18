@@ -25,9 +25,9 @@ export function DataContextProvider(props) {
 	]);
 
 	return (
-		<DataContextProvider value={{ data, setData }}>
+		<DataContext.Provider value={{ data, setData }}>
             {props.children}
-        </DataContextProvider>
+        </DataContext.Provider>
 	);
 }
 
