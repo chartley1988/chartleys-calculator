@@ -29,7 +29,11 @@ export function DataContextProvider(props) {
 		const storedData = localStorage.getItem('userData');
 
 		if (storedData) {
-			updateData(JSON.parse(storedData));
+			let data = JSON.parse(storedData)
+			data.forEach((entry) => {
+				entry.selected = false;
+			});
+			updateData(data);
 		}
 	}, []);
 

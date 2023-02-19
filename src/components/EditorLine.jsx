@@ -5,11 +5,19 @@ import splitString from '../math/string_parse';
 import shuntingYard from '../math/shunting_yard';
 import operateRPN from '../math/operate_RPN';
 import { useDataContext } from './DataContext';
+import { useEffect, useRef } from 'react';
+import useOnClickOutside from '../custom_hooks/UseOnClickOutside';
 
 
 function EditorLine(props) {
-	const { lineNumber, value, selected, onSelectLine } = props;
+	const { lineNumber, value, selected, onSelectLine, clearLineSelection } = props;
 	const context = useDataContext();
+	
+	// Used to detect click outside of line, for deselecting line.
+	const ref = useRef(); 
+	useOnClickOutside(ref, () => {
+		clearLineSelection()
+	})
 
 	function getInputValue() {
 		const lineText = document.getElementById(`input-${lineNumber}`).value;
@@ -47,7 +55,7 @@ function EditorLine(props) {
 				entry.selected = false;
 			});
 			entry.selected = false;
-			setLineSelected(false, 0);
+			onSelectLine(false, 0);
 		}
 		
 		context.updateData(updatedData);
@@ -55,7 +63,7 @@ function EditorLine(props) {
 	}
 
 	return (
-		<li id={`line-${lineNumber}`}>
+		<li id={`line-${lineNumber}`} ref={ref}>
 			<div className='editor-line-flex'>
 				<div className='input-container'>
 					<p

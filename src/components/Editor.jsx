@@ -55,12 +55,7 @@ function Editor() {
 	}
 
 	return (
-		<div
-			onClick={(event) => {
-				event.stopPropagation();
-				clearLineSelection();
-			}}
-		>
+		<div>
 			<ul className='Editor'>
 				{dataContext.data.map((entry) => {
 					return (
@@ -70,6 +65,7 @@ function Editor() {
 							value={entry.output_string}
 							selected={entry.selected}
 							onSelectLine={onSelectLine}
+							clearLineSelection={clearLineSelection}
 						/>
 					);
 				})}
