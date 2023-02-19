@@ -42,6 +42,8 @@ function operateRPN(queue: string[]) {
 	if(output > 100000000) {
 		return output.toExponential(4);
 	}
+	
+	if (output.toString() === "NaN") return "";
 	return output.toString();
 }
 
