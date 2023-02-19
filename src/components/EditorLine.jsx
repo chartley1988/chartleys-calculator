@@ -5,23 +5,37 @@ import splitString from '../math/string_parse';
 import shuntingYard from '../math/shunting_yard';
 import operateRPN from '../math/operate_RPN';
 import { useDataContext } from './DataContext';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import useOnClickOutside from '../custom_hooks/UseOnClickOutside';
 
-
 function EditorLine(props) {
-	const { lineNumber, value, selected, onSelectLine, clearLineSelection } = props;
+	const {
+		lineNumber,
+		value,
+		selected,
+		onSelectLine,
+		clearLineSelection,
+		updateCaretPosition,
+		referenceLineNumber
+	} = props;
 	const context = useDataContext();
+	useEffect(()=>{
+		calculateResult(getInputValue(), lineNumber);
+	}, context.data)
 	
 	// Used to detect click outside of line, for deselecting line.
-	const ref = useRef(); 
+	const ref = useRef();
 	useOnClickOutside(ref, () => {
-		clearLineSelection()
-	})
+		clearLineSelection();
+	});
 
 	function getInputValue() {
 		const lineText = document.getElementById(`input-${lineNumber}`).value;
 		return lineText;
+	}
+
+	function updateInputValue(newText) {
+		document.getElementById(`input-${lineNumber}`).value = newText;
 	}
 
 	function calculateResult(input, line_number) {
@@ -57,9 +71,8 @@ function EditorLine(props) {
 			entry.selected = false;
 			onSelectLine(false, 0);
 		}
-		
+
 		context.updateData(updatedData);
-		
 	}
 
 	return (
@@ -82,6 +95,7 @@ function EditorLine(props) {
 					</p>
 					<LineInput
 						lineNumber={lineNumber}
+						updateCaretPosition={updateCaretPosition}
 						onChange={() => {
 							calculateResult(getInputValue(), lineNumber);
 						}}
@@ -93,7 +107,9 @@ function EditorLine(props) {
 						}}
 					/>
 				</div>
-				<div className='Result'>{value}</div>
+				<div className='Result' onClick={()=>{
+					referenceLineNumber(lineNumber)
+				}}>{value}</div>
 			</div>
 			<hr></hr>
 		</li>
