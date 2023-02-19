@@ -7,7 +7,7 @@ function FooterSelected(props) {
 	const context = useDataContext();
 
 	function moveLineUp(line_number) {
-		if (line_number > 1) {
+		if (line_number > 1) { 
 			const updatedData = context.data.slice();
 			const entry = updatedData.find(
 				(entry) => entry.line_number === line_number

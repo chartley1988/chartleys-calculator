@@ -1,6 +1,6 @@
-import { useContext, createContext, useState } from 'react';
+import { useContext, createContext, useState, useEffect } from 'react';
 
-const DataContext = createContext(null)
+const DataContext = createContext(null);
 
 export function DataContextProvider(props) {
 	const [data, setData] = useState([
@@ -24,22 +24,31 @@ export function DataContextProvider(props) {
 		},
 	]);
 
-    function updateStorage(newData) {
-        localStorage.setItem('userData', JSON.stringify(newData))
-    }
+	// Loads previous data from user storage
+	useEffect(() => {
+		const storedData = localStorage.getItem('userData');
 
-    function updateData(newData) {
-        setData(newData);
-        updateStorage(newData);
-    }
+		if (storedData) {
+			updateData(JSON.parse(storedData));
+		}
+	}, []);
+
+	// Updates local storage
+	function updateStorage(newData) {
+		localStorage.setItem('userData', JSON.stringify(newData));
+	}
+
+	// Updates data state as well as local storage
+	function updateData(newData) {
+		setData(newData);
+		updateStorage(newData);
+	}
 
 	return (
 		<DataContext.Provider value={{ data, setData, updateData }}>
-            {props.children}
-        </DataContext.Provider>
+			{props.children}
+		</DataContext.Provider>
 	);
 }
 
 export const useDataContext = () => useContext(DataContext);
-
-

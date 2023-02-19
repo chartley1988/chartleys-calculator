@@ -1,14 +1,57 @@
-import { useState } from 'react';
 import '../css/editor.css';
 import '../css/result.css';
 import LineInput from './LineInput';
+import splitString from '../math/string_parse';
+import shuntingYard from '../math/shunting_yard';
+import operateRPN from '../math/operate_RPN';
+import { useDataContext } from './DataContext';
+
 
 function EditorLine(props) {
-	const { lineNumber, value, calculateResult, selected, onClickLine } = props;
+	const { lineNumber, value, selected, onSelectLine } = props;
+	const context = useDataContext();
 
 	function getInputValue() {
 		const lineText = document.getElementById(`input-${lineNumber}`).value;
 		return lineText;
+	}
+
+	function calculateResult(input, line_number) {
+		const updatedData = context.data.slice();
+		const tokens = splitString(input);
+		const rpn = shuntingYard().parseInfix(tokens);
+		const result = operateRPN(rpn);
+		const entry = updatedData.find(
+			(entry) => entry.line_number === line_number
+		);
+		entry.input_string = input;
+		entry.output_string = result;
+		context.updateData(updatedData);
+	}
+
+	function onClickLine(line_number) {
+		const updatedData = context.data.slice();
+
+		const entry = updatedData.find(
+			(entry) => entry.line_number === line_number
+		);
+
+		if (entry.selected === false) {
+			updatedData.forEach((entry) => {
+				entry.selected = false;
+			});
+			entry.selected = true;
+			onSelectLine(true, lineNumber);
+		} else {
+			updatedData.forEach((entry) => {
+				entry.selected = false;
+			});
+			entry.selected = false;
+			setLineSelected(false, 0);
+		}
+		
+		context.updateData(updatedData);
+		
 	}
 
 	return (
