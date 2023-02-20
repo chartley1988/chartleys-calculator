@@ -5,7 +5,7 @@ import splitString from '../math/string_parse';
 import shuntingYard from '../math/shunting_yard';
 import operateRPN from '../math/operate_RPN';
 import { useDataContext } from './DataContext';
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 import useOnClickOutside from '../custom_hooks/UseOnClickOutside';
 
 function EditorLine(props) {
@@ -19,9 +19,6 @@ function EditorLine(props) {
 		referenceLineNumber
 	} = props;
 	const context = useDataContext();
-	useEffect(()=>{
-		calculateResult(getInputValue(), lineNumber);
-	}, context.data)
 	
 	// Used to detect click outside of line, for deselecting line.
 	const ref = useRef();
@@ -40,7 +37,10 @@ function EditorLine(props) {
 
 	function calculateResult(input, line_number) {
 		const updatedData = context.data.slice();
-		const tokens = splitString(input);
+
+		const results = updatedData.map(entry => Number(entry.output_string))
+		
+		const tokens = splitString(input, results, line_number);
 		const rpn = shuntingYard().parseInfix(tokens);
 		const result = operateRPN(rpn);
 		const entry = updatedData.find(
@@ -98,6 +98,11 @@ function EditorLine(props) {
 						updateCaretPosition={updateCaretPosition}
 						onChange={() => {
 							calculateResult(getInputValue(), lineNumber);
+
+							for (let index = 0; index < context.data.length; index++) {
+								const line = context.data[index];
+								calculateResult(line.input_string, (index+1))
+							}
 						}}
 						onClickLine={onClickLine}
 						styleProp={{
