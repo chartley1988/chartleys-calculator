@@ -1,4 +1,7 @@
 import { useContext, createContext, useState, useEffect } from 'react';
+import splitString from '../math/string_parse';
+import shuntingYard from '../math/shunting_yard';
+import operateRPN from '../math/operate_RPN';
 
 const DataContext = createContext(null);
 
@@ -29,7 +32,7 @@ export function DataContextProvider(props) {
 		const storedData = localStorage.getItem('userData');
 
 		if (storedData) {
-			let data = JSON.parse(storedData)
+			let data = JSON.parse(storedData);
 			data.forEach((entry) => {
 				entry.selected = false;
 			});
@@ -48,8 +51,40 @@ export function DataContextProvider(props) {
 		updateStorage(newData);
 	}
 
+	function calculateResult(input, line_number) {
+		const updatedData = data.slice();
+
+		const results = updatedData.map((entry) => Number(entry.output_string));
+
+		const tokens = splitString(input, results, line_number);
+		const rpn = shuntingYard().parseInfix(tokens);
+		const result = operateRPN(rpn);
+		const entry = updatedData.find(
+			(entry) => entry.line_number === line_number
+		);
+		entry.input_string = input;
+		entry.output_string = result;
+		updateData(updatedData);
+	}
+
+	function calculateAllResults() {
+		const updatedData = data.slice();
+		for (let index = 0; index < updatedData.length; index++) {
+			const line = updatedData[index];
+			calculateResult(line.input_string, index + 1);
+		}
+	}
+
 	return (
-		<DataContext.Provider value={{ data, setData, updateData }}>
+		<DataContext.Provider
+			value={{
+				data,
+				setData,
+				updateData,
+				calculateAllResults,
+				calculateResult,
+			}}
+		>
 			{props.children}
 		</DataContext.Provider>
 	);

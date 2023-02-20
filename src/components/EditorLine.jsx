@@ -1,9 +1,6 @@
 import '../css/editor.css';
 import '../css/result.css';
 import LineInput from './LineInput';
-import splitString from '../math/string_parse';
-import shuntingYard from '../math/shunting_yard';
-import operateRPN from '../math/operate_RPN';
 import { useDataContext } from './DataContext';
 import { useRef } from 'react';
 import useOnClickOutside from '../custom_hooks/UseOnClickOutside';
@@ -16,7 +13,7 @@ function EditorLine(props) {
 		onSelectLine,
 		clearLineSelection,
 		updateCaretPosition,
-		referenceLineNumber
+		referenceLineNumber,
 	} = props;
 	const context = useDataContext();
 	
@@ -31,26 +28,6 @@ function EditorLine(props) {
 		return lineText;
 	}
 
-	function updateInputValue(newText) {
-		document.getElementById(`input-${lineNumber}`).value = newText;
-	}
-
-	function calculateResult(input, line_number) {
-		const updatedData = context.data.slice();
-
-		const results = updatedData.map(entry => Number(entry.output_string))
-		
-		const tokens = splitString(input, results, line_number);
-		const rpn = shuntingYard().parseInfix(tokens);
-		const result = operateRPN(rpn);
-		const entry = updatedData.find(
-			(entry) => entry.line_number === line_number
-		);
-		entry.input_string = input;
-		entry.output_string = result;
-		context.updateData(updatedData);
-	}
-
 	function onClickLine(line_number) {
 		const updatedData = context.data.slice();
 
@@ -58,6 +35,7 @@ function EditorLine(props) {
 			(entry) => entry.line_number === line_number
 		);
 
+		// Unselects all lines, then selects the current one
 		if (entry.selected === false) {
 			updatedData.forEach((entry) => {
 				entry.selected = false;
@@ -97,12 +75,8 @@ function EditorLine(props) {
 						lineNumber={lineNumber}
 						updateCaretPosition={updateCaretPosition}
 						onChange={() => {
-							calculateResult(getInputValue(), lineNumber);
-
-							for (let index = 0; index < context.data.length; index++) {
-								const line = context.data[index];
-								calculateResult(line.input_string, (index+1))
-							}
+							context.calculateResult(getInputValue(), lineNumber);
+							context.calculateAllResults();
 						}}
 						onClickLine={onClickLine}
 						styleProp={{
@@ -114,6 +88,7 @@ function EditorLine(props) {
 				</div>
 				<div className='Result' onClick={()=>{
 					referenceLineNumber(lineNumber)
+					context.calculateAllResults();
 				}}>{value}</div>
 			</div>
 			<hr></hr>
