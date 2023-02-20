@@ -39,7 +39,7 @@ function Editor() {
 		const target = document.getElementById(`input-${line_num}`)
 		target.focus()
 		target.setSelectionRange(position, position);
-		setCaret([line_num, position]);
+		setCaret([line_num, position])
 	}
 
 	function renderFooter() {
