@@ -10,19 +10,19 @@ export function DataContextProvider(props) {
 		{
 			line_number: 1,
 			input_string: 'Basic Math: 4 + 3(4 * 3)',
-			output_string: '',
+			output_string: '40',
 			selected: false,
 		},
 		{
 			line_number: 2,
 			input_string: 'Line Reference: Line1 * 2',
-			output_string: '',
+			output_string: '80',
 			selected: false,
 		},
 		{
 			line_number: 3,
 			input_string: 'Multiple References: Line2 + Line1',
-			output_string: '',
+			output_string: '120',
 			selected: false,
 		},
 	]);
@@ -39,7 +39,6 @@ export function DataContextProvider(props) {
 			updateData(data);
 		}
 
-		calculateAllResults();
 	}, []);
 
 	// Updates local storage
