@@ -79,7 +79,8 @@ function HelpWindow(props) {
 						<p>
 							Currently, the following operators are supported in
 							equations:
-							<ul className='help-list'>
+						</p>
+						<ul className='help-list'>
 								<li>
 									<code>+</code> :Addition
 								</li>
@@ -99,7 +100,6 @@ function HelpWindow(props) {
 									<code>()</code> :Brackets
 								</li>
 							</ul>
-						</p>
 
 						<h4>Adding Lines</h4>
 						<p>
