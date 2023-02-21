@@ -2,6 +2,8 @@
     --accent: 153, 217, 140;
     --accent-2: 22, 138, 173;
     --font: black;
+    font-family: 'Nunito', sans-serif;
+    color: var(--font);
 }
 
 body {
@@ -15,8 +17,53 @@ body {
     box-sizing: border-box;
 }
 
+h2 {
+    padding: 0.5rem;
+    font-size: 1.75rem;
+    text-align: center;
+}
+
+h3 {
+    padding: 0.65rem;
+    font-size: 1.25rem;
+    text-align: left;
+}
+
+h4 {
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
 p {
     font-family: 'Nunito', sans-serif;
+    color: var(--font);
+}
+
+ul.help-list {
+    list-style-position: inside;
+}
+
+code {
+    padding: 0.2rem;
+    margin: 0.3rem 0 0.3rem 0;
+    background-color: rgba(100, 148, 237, 0.216);
+    width: max-content;
+    border-radius: 0.2rem;
+}
+
+button {
+    font-size: 1.2rem;
+    padding: 0.25rem;
+    color: var(--font);
+    background-color: rgb(var(--accent-2), 0.3);
+    border: none;
+    border-bottom: rgb(var(--accent-2)) solid 2px;
+    border-radius: 0.35rem;
+}
+
+button:hover {
+    background-color: rgb(var(--accent-2), 0.5);
 }
 
 
@@ -39,13 +86,14 @@ p {
 
 .fade-in {
     opacity: 1;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
+    transform: scaleY(1);
+    transition: all 0.3s ease;
 }
 
 .fade-out {
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transform: scaleY(0);
+    transition: all 0.3s ease;
     pointer-events: none;
 }
 
@@ -67,6 +115,19 @@ p {
     
     .desktop {
         display: none;
+    }
+
+    .fade-in {
+        opacity: 1;
+        transform: scaleY(1);
+        transition: all 0.3s ease;
+    }
+    
+    .fade-out {
+        opacity: 0;
+        transform: scaleY(1);
+        transition: all 0.3s ease;
+        pointer-events: none;
     }
 }
 
