@@ -9,12 +9,10 @@ function App() {
 	const [ helpOpen, setHelpOpen ] = useState(false);
 
 	function openHelp () {
-		console.log('hello! open')
         setHelpOpen(true);
     }
 
 	function closeHelp () {
-		console.log('hello! close')
 		setHelpOpen(false);
 	}
 

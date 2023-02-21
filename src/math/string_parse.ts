@@ -14,7 +14,7 @@ function splitString(
 
 			// Makes sure that a line greater than the array isn't being referenced, or one that is the same as the line being queried.
 			if (
-				lineNumber >= results.length ||
+				lineNumber > results.length ||
 				String(current_line) === String(lineNumber)
 			) {
 				return '';
