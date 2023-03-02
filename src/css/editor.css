@@ -71,7 +71,6 @@ div:has(.Editor) {
     height: 100%;
     padding: 0.25rem;
     background-color: rgb(var(--accent-2),0.3);
-    border-right: rgb(var(--accent-2)) 2px solid;
 
     display: flex;
     flex-direction: column;
