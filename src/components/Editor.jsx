@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import '../css/editor.css';
 import EditorLine from './EditorLine';
 import Footer from './Footer';
@@ -22,6 +22,7 @@ function Editor() {
 		updatedData.forEach((entry) => {
 			entry.selected = false;
 		});
+		dataContext.updateData(updatedData);
 		setLineSelected(false);
 		setCurrentLine(0);
 	}
@@ -36,10 +37,10 @@ function Editor() {
 	}
 
 	function placeCaretAtPosition(line_num, position) {
-		const target = document.getElementById(`input-${line_num}`)
-		target.focus()
+		const target = document.getElementById(`input-${line_num}`);
+		target.focus();
 		target.setSelectionRange(position, position);
-		setCaret([line_num, position])
+		setCaret([line_num, position]);
 	}
 
 	function renderFooter() {
@@ -91,20 +92,20 @@ function Editor() {
 		const input = entry.input_string;
 		const newText = spliceText(input, `Line${target}`, caret[1]);
 
-		const element = document.getElementById(`input-${caret[0]}`)
+		const element = document.getElementById(`input-${caret[0]}`);
 		element.value = newText;
 
 		entry.input_string = newText;
 		dataContext.updateData(updatedData);
 
 		const newPosition = caret[1] + `Line${target}`.length + 2;
-		placeCaretAtPosition(caret[0], newPosition )
+		placeCaretAtPosition(caret[0], newPosition);
 	}
 
 	return (
-		<div>
+		<>
 			<ul className='Editor'>
-				{dataContext.data.map((entry) => {
+				{dataContext.data.map((entry,index) => {
 					return (
 						<EditorLine
 							key={entry.line_number}
@@ -121,7 +122,7 @@ function Editor() {
 				})}
 			</ul>
 			{renderFooter()}
-		</div>
+		</>
 	);
 }
 

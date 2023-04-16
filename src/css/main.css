@@ -1,146 +1,171 @@
 :root {
-    --accent: 153, 217, 140;
-    --accent-2: 22, 138, 173;
-    --font: black;
-    font-family: 'Nunito', sans-serif;
-    color: var(--font);
+	--accent: 148, 210, 189;
+	--accent-2: 233, 216, 166;
+	--font: black;
+	font-family: 'Nunito', sans-serif;
+	color: var(--font);
+}
+
+.App {
+    padding: 2rem;
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+}
+
+.wrapper {
+    height: 100%;
+	max-width: 960px;
+    border: 2px solid black;
+    border-radius: 1rem;
+	overflow: hidden;
+	background-color: aliceblue;
+
+	display: grid;
+	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr;
 }
 
 body {
-    background-color: white;
+	background-color: white;
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    font-size: 100%;
-    box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	box-sizing: border-box;
 }
 
 h2 {
-    padding: 0.5rem;
-    font-size: 1.75rem;
-    text-align: center;
+	padding: 0.5rem;
+	font-size: 1.75rem;
+	text-align: center;
 }
 
 h3 {
-    padding: 0.65rem;
-    font-size: 1.25rem;
-    text-align: left;
+	padding: 0.65rem;
+	font-size: 1.25rem;
+	text-align: left;
 }
 
 h4 {
-    font-size: 1.1rem;
-    font-style: italic;
-    margin-top: 0.5rem;
+	font-size: 1.1rem;
+	font-style: italic;
+	margin-top: 0.5rem;
 }
 
 p {
-    font-family: 'Nunito', sans-serif;
-    color: var(--font);
+	font-family: 'Nunito', sans-serif;
+	color: var(--font);
 }
 
 ul.help-list {
-    list-style-position: inside;
+	list-style-position: inside;
 }
 
 code {
-    padding: 0.2rem;
-    margin: 0.3rem 0 0.3rem 0;
-    background-color: rgba(100, 148, 237, 0.216);
-    width: max-content;
-    border-radius: 0.2rem;
+	padding: 0.2rem;
+	margin: 0.3rem 0 0.3rem 0;
+	background-color: rgba(100, 148, 237, 0.216);
+	width: max-content;
+	border-radius: 0.2rem;
 }
 
 button {
-    font-size: 1.2rem;
-    padding: 0.25rem;
-    color: var(--font);
-    background-color: rgb(var(--accent-2), 0.3);
-    border: none;
-    border-bottom: rgb(var(--accent-2)) solid 2px;
-    border-radius: 0.35rem;
+	font-size: 1.2rem;
+	padding: 0.25rem;
+	color: var(--font);
+	background-color: rgb(var(--accent-2), 0.3);
+	border: none;
+	border-radius: 50%;
 }
 
 button:hover {
-    background-color: rgb(var(--accent-2), 0.5);
-}
-
-
-.App {
-    height: 100vh;
-    width: 100;
-
-    display: grid;
-    grid-template-columns: 2fr 0.5fr;
-    grid-template-rows: auto auto 1fr;
+	background-color: rgb(var(--accent-2), 0.5);
 }
 
 .mobile {
-    display: none;
+	display: none;
 }
 
 .desktop {
-    display: block;
+	display: block;
 }
 
 .fade-in {
-    opacity: 1;
-    transform: scaleY(1);
-    transition: all 0.3s ease;
+	opacity: 1;
+	transform: scaleY(1);
+	transition: all 0.3s ease;
 }
 
 .fade-out {
-    opacity: 0;
-    transform: scaleY(0);
-    transition: all 0.3s ease;
-    pointer-events: none;
+	opacity: 0;
+	transform: scaleY(0);
+	transition: all 0.3s ease;
+	pointer-events: none;
 }
 
-
 @media only screen and (max-width: 800px) {
-    header {
-        padding: 0.25rem;
-        padding-left: 1rem;
-        font-size: 1.5rem;
-    }
+	header {
+		padding: 0.25rem;
+		padding-left: 1rem;
+		font-size: 1.5rem;
+	}
 
-    .App {
-        grid-template-columns: 2fr 1fr;
-    }
+	.App {
+		padding: 0;
+		width: 100%;
+		height: 90vh;
+	}
 
-    .mobile {
-        display: block;
-    }
-    
-    .desktop {
-        display: none;
-    }
+	.wrapper {
+		width: 100%;
+		height: 100%;
+		border: none;
+		border-radius: 0;
 
-    .fade-in {
-        opacity: 1;
-        transform: scaleY(1);
-        transition: all 0.3s ease;
-    }
-    
-    .fade-out {
-        opacity: 0;
-        transform: scaleY(1);
-        transition: all 0.3s ease;
-        pointer-events: none;
-    }
+
+	}
+
+	.mobile {
+		display: block;
+	}
+
+	.desktop {
+		display: none;
+	}
+
+	.fade-in {
+		opacity: 1;
+		transform: scaleY(1);
+		transition: all 0.3s ease;
+	}
+
+	.fade-out {
+		opacity: 0;
+		transform: scaleY(1);
+		transition: all 0.3s ease;
+		pointer-events: none;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
-    :root {
-        --font: #F7FBE8;
-    }
+	:root {
+		--font: #f7fbe8;
+	}
 
-    body {
-        background-color: rgb(37, 37, 37);
-    }
+	.wrapper {
+		background-color: rgb(37, 37, 37);
+		border: 2px solid rgb(var(--accent), 0.3);
+		border-radius: 1rem;
+	}
 
-    footer {
-        background-color: rgb(22, 22, 22);
-    }
+	body {
+		background-color: rgb(37, 37, 37);
+	}
+
+	footer {
+		background-color: rgb(22, 22, 22);
+	}
 }

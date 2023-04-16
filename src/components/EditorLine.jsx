@@ -61,8 +61,8 @@ function EditorLine(props) {
 						className='editor-line-number'
 						style={{
 							backgroundColor: selected
-								? 'rgb(var(--accent-2),0.7)'
-								: 'rgb(var(--accent-2),0.3)',
+								? 'rgb(var(--accent-2),0.3)'
+								: 'rgb(var(--accent-2),0.15)',
 						}}
 						onClick={(event) => {
 							event.stopPropagation();
@@ -81,8 +81,8 @@ function EditorLine(props) {
 						onClickLine={onClickLine}
 						styleProp={{
 							backgroundColor: selected
-								? 'rgb(var(--accent-2),0.2)'
-								: 'rgb(var(--accent-2),0.1)',
+								? 'rgb(var(--accent-2),0.1)'
+								: 'white',
 						}}
 					/>
 				</div>

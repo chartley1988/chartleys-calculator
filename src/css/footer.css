@@ -3,7 +3,7 @@ footer {
     width: 100%;
 
     --size: 4rem;
-    position: fixed;
+    
     bottom: 0px;
     height: var(--size);
     background-color: white;
@@ -14,6 +14,7 @@ footer {
     justify-content: space-between;
     gap: 0.5rem;
     padding: 0.5rem;
+
 }
 
 .footer-button {
@@ -22,10 +23,9 @@ footer {
     font-size: 1.5rem;
     color: var(--font);
     background-color: rgb(var(--accent), 0.2);
-    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+    padding: 0.25rem 1.5rem 0.25rem 1.5rem;
     border: none;
-    border-bottom: rgb(var(--accent)) solid 2px;
-    border-radius: 0.75rem;
+    border-radius: 1.5rem;
 }
 
 .footer-button:hover {

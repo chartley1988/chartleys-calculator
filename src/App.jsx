@@ -6,23 +6,25 @@ import { useState } from 'react';
 import HelpWindow from './components/HelpWindow';
 
 function App() {
-	const [ helpOpen, setHelpOpen ] = useState(false);
+	const [helpOpen, setHelpOpen] = useState(false);
 
-	function openHelp () {
-        setHelpOpen(true);
-    }
+	function openHelp() {
+		setHelpOpen(true);
+	}
 
-	function closeHelp () {
+	function closeHelp() {
 		setHelpOpen(false);
 	}
 
 	return (
 		<div className='App'>
-			<Header openHelp={openHelp} />
-			<DataContextProvider>
-				<Editor />
-			</DataContextProvider>
-			<HelpWindow closeHelp={closeHelp} helpOpen={helpOpen} />
+			<div className='wrapper'>
+				<Header openHelp={openHelp} />
+				<DataContextProvider>
+					<Editor />
+				</DataContextProvider>
+				<HelpWindow closeHelp={closeHelp} helpOpen={helpOpen} />
+			</div>
 		</div>
 	);
 }
