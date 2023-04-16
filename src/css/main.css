@@ -1,6 +1,7 @@
 :root {
-	--accent: 148, 210, 189;
-	--accent-2: 233, 216, 16;
+	--bg-color: white; 
+	--accent: 128, 237, 153;
+	--accent-2: 87, 204, 153;
 	--font: black;
 	font-family: 'Nunito', sans-serif;
 	color: var(--font);
@@ -153,12 +154,13 @@ button:hover {
 @media (prefers-color-scheme: dark) {
 	:root {
 		--font: #f7fbe8;
+		--bg-color: rgb(37, 37, 37);
+		--accent: 87, 204, 153;
+		--accent-2: 56, 163, 165;
 	}
 
 	.wrapper {
-		background-color: rgb(37, 37, 37);
-		border: 2px solid rgb(var(--accent), 0.3);
-		border-radius: 1rem;
+		background-color: var(--bg-color);
 	}
 
 	body {

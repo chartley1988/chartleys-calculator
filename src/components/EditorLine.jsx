@@ -82,7 +82,7 @@ function EditorLine(props) {
 						styleProp={{
 							backgroundColor: selected
 								? 'rgb(var(--accent-2),0.1)'
-								: 'white',
+								: 'var(--bg-color)',
 						}}
 					/>
 				</div>
