@@ -25,6 +25,8 @@
 	display: grid;
 	grid-template-rows: auto 1fr;
 	grid-template-columns: 1fr;
+
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
 }
 
 body {
@@ -158,9 +160,10 @@ button:hover {
 		--accent: 87, 204, 153;
 		--accent-2: 56, 163, 165;
 	}
-
+	
 	.wrapper {
 		background-color: var(--bg-color);
+		box-shadow: rgb(var(--accent-2), 0.2) 0px 10px 50px;
 	}
 
 	body {
