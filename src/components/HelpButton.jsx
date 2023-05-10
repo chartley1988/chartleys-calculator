@@ -1,13 +1,16 @@
-
 function HelpButton(props) {
-    const { openHelp } = props;
+	const { openHelp } = props;
 
 	return (
-		<button id="help-button" onClick={(event)=>{
-            event.stopPropagation();
-            openHelp();
-        }}>
+		<button
+			id='help-button'
+			onClick={(event) => {
+				event.stopPropagation();
+				openHelp();
+			}}
+		>
 			<svg
+				style={{ height: '100%' }}
 				xmlns='http://www.w3.org/2000/svg'
 				fill='none'
 				viewBox='0 0 24 24'
@@ -25,4 +28,4 @@ function HelpButton(props) {
 	);
 }
 
-export default HelpButton
+export default HelpButton;

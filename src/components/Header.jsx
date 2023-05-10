@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Logo } from '../components/Logo';
 import '../css/header.css';
 import HelpButton from './HelpButton';
+import { getUserContext } from './UserContext';
 
 function Header(props) {
 	const { openHelp } = props;
@@ -10,8 +12,26 @@ function Header(props) {
 				<Logo />
 				SUMMIT
 			</div>
+			<SignIn />
 			<HelpButton openHelp={openHelp} />
 		</header>
+	);
+}
+
+function SignIn() {
+	const userContext = getUserContext();
+	const user = userContext.user;
+
+
+	function handler() {
+		userContext.getFireBaseApp();
+	}
+
+	return (
+		<div style={{ display: 'flex', justifyContent: 'center' }}>
+			<h2>{user ? `${user}` : ''}</h2>
+			<button onClick={handler}>{user ? 'Sign Out' : 'Sign In'}</button>
+		</div>
 	);
 }
 
