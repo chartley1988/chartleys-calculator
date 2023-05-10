@@ -10,7 +10,6 @@ export default function UserContextProvider(props){
     async function signIn() {
         var provider = new GoogleAuthProvider();
         await signInWithPopup(getAuth(), provider);
-        console.log(getAuth())
         setUser(getAuth().currentUser.displayName)
     }
 
