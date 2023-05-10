@@ -22,15 +22,12 @@ function SignIn() {
 	const userContext = getUserContext();
 	const user = userContext.user;
 
-
-	function handler() {
-		userContext.getFireBaseApp();
-	}
-
 	return (
 		<div style={{ display: 'flex', justifyContent: 'center' }}>
 			<h2>{user ? `${user}` : ''}</h2>
-			<button onClick={handler}>{user ? 'Sign Out' : 'Sign In'}</button>
+			<button onClick={user ? userContext.signOutUser : userContext.signIn}>
+				{user ? 'Sign Out' : 'Sign In'}
+			</button>
 		</div>
 	);
 }

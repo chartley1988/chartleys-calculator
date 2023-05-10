@@ -77,11 +77,11 @@ code {
 
 button {
 	font-size: 1.2rem;
-	padding: 0.25rem;
+	padding: 0.25rem 0.5rem;
 	color: var(--font);
 	background-color: rgb(var(--accent-2), 0.3);
 	border: none;
-	border-radius: 50%;
+	border-radius: 0.5rem;
 }
 
 button:hover {
