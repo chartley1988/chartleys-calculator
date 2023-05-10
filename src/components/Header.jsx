@@ -26,7 +26,7 @@ function SignIn() {
 		<div style={{ display: 'flex', justifyContent: 'center' }}>
 			<h2>{user ? `${user}` : ''}</h2>
 			<button onClick={user ? userContext.signOutUser : userContext.signIn}>
-				{user ? 'SignOut' : 'Sign In'}
+				{user ? 'Sign Out' : 'Sign In'}
 			</button>
 		</div>
 	);
