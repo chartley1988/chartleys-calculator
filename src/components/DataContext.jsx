@@ -1,4 +1,5 @@
 import { useContext, createContext, useState, useEffect } from 'react';
+import { getUserContext } from './UserContext';
 import splitString from '../math/string_parse';
 import shuntingYard from '../math/shunting_yard';
 import operateRPN from '../math/operate_RPN';
@@ -6,6 +7,7 @@ import operateRPN from '../math/operate_RPN';
 const DataContext = createContext(null);
 
 export function DataContextProvider(props) {
+	const userContext = getUserContext();
 	const [data, setData] = useState([
 		{
 			line_number: 1,
@@ -30,7 +32,7 @@ export function DataContextProvider(props) {
 	// Loads previous data from user storage
 	useEffect(() => {
 		const storedData = localStorage.getItem('userData');
-
+		console.log(userContext.user)
 		if (storedData) {
 			let data = JSON.parse(storedData);
 			data.forEach((entry) => {
@@ -39,7 +41,7 @@ export function DataContextProvider(props) {
 			updateData(data);
 		}
 
-	}, []);
+	}, [userContext.user]);
 
 	// Updates local storage
 	function updateStorage(newData) {

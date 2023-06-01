@@ -1,0 +1,16 @@
+.menu-container {
+    padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    font-size: 1.25rem;
+}
+
+.hamburger {
+    background-color: none;
+}

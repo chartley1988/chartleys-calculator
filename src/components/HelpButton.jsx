@@ -1,8 +1,11 @@
+import style from '../css/Header.module.css'
+
 function HelpButton(props) {
 	const { openHelp } = props;
 
 	return (
 		<button
+			className={style.icon}
 			id='help-button'
 			onClick={(event) => {
 				event.stopPropagation();
@@ -10,7 +13,7 @@ function HelpButton(props) {
 			}}
 		>
 			<svg
-				style={{ height: '100%' }}
+				style={{ height: '100%', width: '100%' }}
 				xmlns='http://www.w3.org/2000/svg'
 				fill='none'
 				viewBox='0 0 24 24'

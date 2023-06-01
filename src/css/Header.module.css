@@ -1,0 +1,54 @@
+header {
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1.5rem;
+
+    grid-column: 1/3;
+    grid-row: 1/2;
+    background-color: rgb(var(--accent),0.3);
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.icon {
+    flex: 1;
+    padding: 8px;
+    width: 48px;
+    height: 48px;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px inset;
+
+}
+
+.title-container {
+    color: var(--font);
+    font-family: 'Nunito', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+
+    align-items: center;
+    gap: 0.5rem;
+    display: flex;
+}
+
+.title-container > svg {
+    height: 100%;
+    width: auto;
+}
