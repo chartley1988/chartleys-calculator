@@ -3,39 +3,57 @@ function splitString(
 	results: number[],
 	current_line: number
 ): string[] {
-	const splitTokens: any = inputString.match(
-		/\bLine\d*\b|([\^*/+-])|([\\(\\)])|\d*\.?\d*/g
-	);
+	const splitTokens = splitStringIntoTokens(inputString);
 
 	// Maps any 'Line#' values to their values in result array
-	const references = splitTokens.map((token) => {
-		if (token.match(/\bLine\d*\b/g)) {
-			const lineNumber = token.slice(4);
-
-			// Makes sure that a line greater than the array isn't being referenced, or one that is the same as the line being queried.
-			if (
-				lineNumber > results.length ||
-				String(current_line) === String(lineNumber)
-			) {
-				return '';
-			}
-
-			return String(results[lineNumber - 1]);
-		} else {
-			return token;
-		}
-	});
+	const references = checkForReferences(splitTokens, results, current_line);
 
 	// Removes any empty entries
 	const removeEmpties = references.filter((entry) => entry !== '');
 	
-	// Removes any entry that says 'Line' with no number
-	const removeEmptyLineReference = removeEmpties.filter(
-		(entry) => entry !== 'Line'
-	);
+	function splitStringIntoTokens (input: string): string[] {
+		const result = input.match(
+			/\b[Ll][Ii][Nn][Ee]\d*\b|([\^*/+-])|([\\(\\)])|\d*\.?\d*/g
+		);
+
+		if(result === null) {
+			return [''];
+		} else {
+			return result;
+		}
+	};
+
+	function checkForReferences(input: string[], results: number[], lineNumber: number): string[] {
+		const resultingArray = input.map((token) => {
+			console.log(token);
+			if (
+				token.match(/\bLine\d*\b/i) ) {
+				const lineNumber = Number(token.slice(4));
+				console.log(lineNumber);
+	
+				// Check if...
+				if (
+					// Line number doesn't exceed sheet size:
+					lineNumber > results.length ||
+					// Line number isn't trying to reference itself:
+					String(current_line) === lineNumber.toString() ||
+					// Isn't a blank line reference:
+					lineNumber === 0
+				) {
+					return '';
+				}
+	
+				return String(results[lineNumber - 1]);
+			} else {
+				return token;
+			}
+		});
+		console.log(`Line${current_line}: ${resultingArray}`)
+		return resultingArray;
+	}
 
 	// Adds multiply in cases such as '5(5*3)' or '(9*6)(2*3)'
-	const addMultipliers = checkBracketMultiply(removeEmptyLineReference);
+	const addMultipliers = checkBracketMultiply(removeEmpties);
 
 	// Looks for numbers written to be negative values
 	const negatives = checkForNegatives(addMultipliers);
