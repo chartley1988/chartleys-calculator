@@ -1,4 +1,5 @@
 import './css/main.css';
+import './css/utilities.css';
 import Editor from './components/Editor';
 import { DataContextProvider } from './components/DataContext';
 import Header from './components/Header';
@@ -20,9 +21,9 @@ function App() {
 		<div className='App'>
 			<div className='wrapper'>
 				<Header openHelp={openHelp} />
-				<DataContextProvider>
-					<Editor />
-				</DataContextProvider>
+					<DataContextProvider>
+						<Editor />
+					</DataContextProvider>
 				<HelpWindow closeHelp={closeHelp} helpOpen={helpOpen} />
 			</div>
 		</div>

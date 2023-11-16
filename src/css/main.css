@@ -3,6 +3,10 @@
 	--accent: 128, 237, 153;
 	--accent-2: 87, 204, 153;
 	--font: black;
+
+	--gap-sm: 0.5rem;
+	--gap-md: 2rem;
+
 	font-family: 'Nunito', sans-serif;
 	color: var(--font);
 }
@@ -40,10 +44,15 @@ body {
 	box-sizing: border-box;
 }
 
+h1 {
+	font-size: 4rem;
+	text-align: center;
+	font-family: 'Bebas Neue', sans-serif;
+}
+
 h2 {
 	padding: 0.5rem;
 	font-size: 1.75rem;
-	text-align: center;
 }
 
 h3 {
@@ -60,7 +69,11 @@ h4 {
 
 p {
 	font-family: 'Nunito', sans-serif;
-	color: var(--font);
+	max-width: min(calc(100vw - 1rem), 70ch);
+}
+
+p[role=alert] {
+	color: red;
 }
 
 ul.help-list {
@@ -81,7 +94,10 @@ button {
 	color: var(--font);
 	background-color: rgb(var(--accent-2), 0.3);
 	border: none;
-	border-radius: 50%;
+}
+
+input {
+	font-size: max(16px, 1rem);
 }
 
 button:hover {

@@ -4,9 +4,12 @@ import EditorLine from './EditorLine';
 import Footer from './Footer';
 import FooterSelected from './FooterSelected';
 import { useDataContext } from './DataContext';
+import { useUserContext } from './UserContext';
 
 function Editor() {
 	const dataContext = useDataContext();
+	const UserContext = useUserContext();
+
 	const [lineSelected, setLineSelected] = useState(false); // Line Number of highlighted line
 	const [currentLine, setCurrentLine] = useState(0); // Line where caret is
 	const [caret, setCaret] = useState([0, 0]); // Caret position within line

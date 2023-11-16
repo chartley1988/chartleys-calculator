@@ -1,0 +1,23 @@
+.container {
+	width: min(80ch, 100% - 2rem);
+	/* Optional Centering */
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btn {
+    background-color: rgb(var(--accent-2));
+    border: 2px rgb(var(--accent)) solid;
+    border-radius: 0.5rem;
+    transition-duration: 0.4s;
+    padding: 0.25rem 1rem;
+    
+    &:hover {
+        letter-spacing: 0.2rem;
+        transition-duration: 0.4s;
+    }
+}
+
+.loginInput {
+    padding: 0.25rem 0.5rem;
+}
