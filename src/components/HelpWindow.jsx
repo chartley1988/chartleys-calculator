@@ -57,7 +57,7 @@ function HelpWindow(props) {
 							Summit allows you to have as many lines as you want,
 							and each line is its own calculator. In the bottom
 							right, the <em>Sum</em> of all the results is
-							caclulated. The name of the app is a terrible pun
+							calculated. The name of the app is a terrible pun
 							that comes from this function, '<i>sum-it</i>'. Get
 							it??
 						</p>

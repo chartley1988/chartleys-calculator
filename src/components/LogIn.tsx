@@ -1,9 +1,9 @@
-import * as React from 'react';
 import { useState } from 'react';
 import style from '../css/LogIn.module.css';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useUserContext } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
 	userEmail: string;
@@ -12,8 +12,10 @@ type Inputs = {
 
 function LogIn() {
 	const [error, setError] = useState<null | string>(null);
-	const [user, setUser] = useState<any>(null);
 	const userContext = useUserContext();
+	const user = userContext[0];
+	const setUser = userContext[1];
+	const navigate = useNavigate();
 
 	const {
 		register,
@@ -35,21 +37,25 @@ function LogIn() {
 			})
 			.then((data) => {
 				setError(null);
-				console.log(data);
-				userContext[1]({
+				setUser({
 					userName: data.userName,
 				});
+				navigate('/calculator');
 				return data;
 			})
 			.catch((error) => {
 				setError(error.message);
-				userContext[1](undefined);
+				setUser(undefined);
 			});
 	}
 
 	return (
 		<div className={style.container}>
-			{userContext[0] ? <p>Welcome {userContext[0].userName}!</p> : <p>Welcome Guest</p>}
+			{userContext[0] ? (
+				<p>Welcome {userContext[0].userName}!</p>
+			) : (
+				<p>Welcome Guest</p>
+			)}
 			<form onSubmit={handleSubmit(onSubmit)} className='flex-col'>
 				<label htmlFor='userID'>User Email</label>
 				<input

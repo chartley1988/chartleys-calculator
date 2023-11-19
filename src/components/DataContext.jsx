@@ -5,6 +5,8 @@ import operateRPN from '../math/operate_RPN';
 
 const DataContext = createContext(null);
 
+
+
 export function DataContextProvider(props) {
 	const [data, setData] = useState([
 		{
@@ -26,6 +28,8 @@ export function DataContextProvider(props) {
 			selected: false,
 		},
 	]);
+
+	const [sheet, setSheet] = useState(null);
 
 	// Loads previous data from user storage
 	useEffect(() => {
@@ -81,6 +85,8 @@ export function DataContextProvider(props) {
 			value={{
 				data,
 				setData,
+				sheet, 
+				setSheet,
 				updateData,
 				calculateAllResults,
 				calculateResult,

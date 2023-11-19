@@ -1,7 +1,8 @@
 import { Logo } from '../components/Logo';
-import '../css/header.css';
+import style from '../css/header.module.css';
 import HelpButton from './HelpButton';
 import { useUserContext } from './UserContext';
+import Menu from '../components/Menu';
 
 function Header(props) {
 	const user = useUserContext();
@@ -10,12 +11,9 @@ function Header(props) {
 		<header>
 			<div>
 				<Logo />
-				SUMMIT
 			</div>
-			<div>
-				{user[0]? `${user[0].userName}` : '' }
-			</div>
-			<HelpButton openHelp={openHelp} />
+			<h1>Sheet Name</h1>
+			<Menu openHelp={openHelp} />
 		</header>
 	);
 }
